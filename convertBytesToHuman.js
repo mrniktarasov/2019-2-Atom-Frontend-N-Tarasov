@@ -23,13 +23,13 @@ export default function convertBytesToHuman(bytes) {
   if (bytes < KB)
     return toString(bytes) + " " + "B";
   else if ( bytes >= KB || bytes < MB )
-    return toString(bytes/KB) + " " + "KB";
+    return (bytes/KB).toFixed(2) + " " + "KB";
   else if (bytes >= MB || bytes < GB)
-    return toString(bytes/MB) + " " + "MB";
+    return (bytes/MB).toFixed(2) + " " + "MB";
   else if (bytes >= GB && bytes < TB)
-    return toString(bytes/GB) + " " + "GB";
+    return (bytes/GB).toFixed(2) + " " + "GB";
   else if ( bytes >= TB || bytes < PB)
-    return toString(bytes/TB) + " " + "TB";
+    return (bytes/TB).toFixed(2) + " " + "TB";
   else
-    return toString(bytes/PB) + " " + "PB";
+    return (bytes/PB).toFixed(2) + " " + "PB";
 }
