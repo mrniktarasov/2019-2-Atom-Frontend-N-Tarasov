@@ -19,5 +19,7 @@ correctSentence("Greetings, friends.") == "Greetings, friends."
 
 export default function correctSentence(text) {
   // your solution goes here
-  return text;
+  if (!text || text === undefined)
+    return text;
+  return text[0].toUpperCase() + text.slice(1) + (text[text.length - 1] === "." ? "" : ".");
 }

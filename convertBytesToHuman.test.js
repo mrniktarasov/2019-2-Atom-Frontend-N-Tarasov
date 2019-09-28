@@ -10,13 +10,20 @@
 import convertBytesToHuman from './convertBytesToHuman';
 
 test('Возвращает false для неправильного типа данных', () => {
-  expect(convertBytesToHuman(/* ... */)).toBe(/* ... */)
-  // ...
+  expect(convertBytesToHuman("string")).toBe(false)
+  expect(convertBytesToHuman(true)).toBe(false)
+  expect(convertBytesToHuman([1, 2, 3])).toBe(false)
+  expect(convertBytesToHuman(null).toBe(false))
+  expect(convertBytesToHuman(-1).toBe(false))
 });
 
 test('Возвращает корректное значение для чисел', () => {
-  expect(convertBytesToHuman(/* ... */)).toBe(/* ... */)
-  // ...
+  expect(convertBytesToHuman(256)).toBe("1 B")
+  expect(convertBytesToHuman(1024)).toBe("1 KB")
+  expect(convertBytesToHuman(2e20)).toBe("1 МБ")
+  expect(convertBytesToHuman(2e30)).toBe("1 GB")
+  expect(convertBytesToHuman(2e40)).toBe("1 TB")
+  expect(convertBytesToHuman(2e50)).toBe("1 PB")
 });
 
 // другая группа проверок

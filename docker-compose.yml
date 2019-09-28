@@ -1,7 +1,7 @@
 # Default compose file for development.
 # Should be used directly in development.
 
-version: "3.6"
+version: "3.3"
 services:
   frontend:
     build:

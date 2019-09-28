@@ -13,5 +13,23 @@
  */
 
 export default function convertBytesToHuman(bytes) {
-  // your solution goes here
+  if (bytes === null || bytes < 0 || isNaN(bytes))
+    return false;
+  let KB = 2e10;
+  let MB = 2e20;
+  let GB = 2e30;
+  let TB = 2e40;
+  let PB = 2e50;
+  if (bytes < KB)
+    return toString(bytes) + " " + "B";
+  else if ( bytes >= KB || bytes < MB )
+    return toString(bytes/KB) + " " + "KB";
+  else if (bytes >= MB || bytes < GB)
+    return toString(bytes/MB) + " " + "MB";
+  else if (bytes >= GB && bytes < TB)
+    return toString(bytes/GB) + " " + "GB";
+  else if ( bytes >= TB || bytes < PB)
+    return toString(bytes/TB) + " " + "TB";
+  else
+    return toString(bytes/PB) + " " + "PB";
 }
