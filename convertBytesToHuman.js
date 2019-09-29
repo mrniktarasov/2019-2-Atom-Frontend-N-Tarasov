@@ -13,23 +13,24 @@
  */
 
 export default function convertBytesToHuman(bytes) {
-  if (bytes === null || bytes < 0 || isNaN(bytes))
+  if (typeof(bytes) !== "number" || isNaN(bytes) ||  bytes < 0 )
     return false;
-  let KB = 2e10;
+  let KB = 1024;
   let MB = 2e20;
   let GB = 2e30;
   let TB = 2e40;
   let PB = 2e50;
   if (bytes < KB)
-    return toString(bytes) + " " + "B";
-  else if ( bytes >= KB || bytes < MB )
+    return (bytes).toFixed(2) + " " + "B";
+  else if ( bytes >= KB && bytes < MB )
     return (bytes/KB).toFixed(2) + " " + "KB";
-  else if (bytes >= MB || bytes < GB)
+  else if (bytes >= MB && bytes < GB)
     return (bytes/MB).toFixed(2) + " " + "MB";
   else if (bytes >= GB && bytes < TB)
     return (bytes/GB).toFixed(2) + " " + "GB";
-  else if ( bytes >= TB || bytes < PB)
+  else if ( bytes >= TB && bytes < PB)
     return (bytes/TB).toFixed(2) + " " + "TB";
   else
     return (bytes/PB).toFixed(2) + " " + "PB";
 }
+
