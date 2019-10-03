@@ -33,7 +33,3 @@ export default function convertBytesToHuman(bytes) {
   else
     return (bytes/PB).toFixed(2) + " " + "PB";
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> c5c2f75955290dc75aeb2549e6312cec58d7e8d7
