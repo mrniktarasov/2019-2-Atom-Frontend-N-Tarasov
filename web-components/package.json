@@ -31,5 +31,7 @@
   "dependencies": {},
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "homepage": "https://mrniktarasov.github.io/2019-2-Atom-Frontend-N-Tarasov/",
+  "deploy": "gh-pages -d build"
 }

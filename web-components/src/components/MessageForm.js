@@ -108,3 +108,40 @@ class MessageForm extends HTMLElement {
 }
 
 customElements.define('message-form', MessageForm);
+
+/*
+			if (localStorage.length > 0) {
+			const arrMessages = localStorage.getItem(this.IDMessages);
+			Object.keys(arrMessages).forEach((key) => {
+				if (key === this.IDMessages) {
+					const $messageElement = document.createElement('message-box');
+					const currentMessage = arrMessages.get(key);
+					const messageIntoArray = currentMessage.split(`${this.separator}`);
+					$messageElement.dateM = messageIntoArray[0];
+					$messageElement.authorM = messageIntoArray[1];
+					$messageElement.textM = messageIntoArray[2];
+					this.$message.appendChild($messageElement);
+				}
+			});
+		}
+	}
+
+	_onSubmit(event) {
+		event.preventDefault();
+		if (this.$input.value.length > 0) {
+			const author = 'you';
+			const currentDate = new Date();
+			const text = this.$input.value;
+			const timestampID = currentDate.getTime();
+			const currentTime = [currentDate.getHours(), currentDate.getMinutes()].map((x) => (x < 10 ? `0${x}` : x)).join(':');
+			const $newMessage = document.createElement('message-box');
+			$newMessage.dateM = currentTime;
+			$newMessage.textM = text;
+			$newMessage.authorM = author;
+			const arrMessages = localStorage.getItem(this.IDMessages);
+			arrMessages.set(timestampID, `${currentTime}${this.separator}${author}${this.separator}${text}`);
+			localStorage.setItem(this.IDMessages, arrMessages);
+			this.$message.appendChild($newMessage);
+			this.$input.value = '';
+		}
+*/ 
