@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-tabs */
 /* eslint-disable indent */
 /* eslint-disable no-underscore-dangle */
