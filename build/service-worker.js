@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/2019-2-Atom-Frontend-N-Tarasov/precache-manifest.58964e9c8f9e4c6626ed3d05b939f446.js"
+  "/2019-2-Atom-Frontend-N-Tarasov/precache-manifest.c22991a38e6f16b0d3f06a6ef3ef1c8b.js"
 );
 
 self.addEventListener('message', (event) => {

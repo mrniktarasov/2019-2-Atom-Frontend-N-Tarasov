@@ -1,3 +1,5 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable semi */
 import ActionTypes from '../constants/ActionTypes'
 import store from '../store'
 
