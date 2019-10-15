@@ -1,43 +1,43 @@
-/* eslint-disable no-tabs */
 /* eslint-disable no-underscore-dangle */
 const template = document.createElement('template');
 template.innerHTML = `
-	<style>
-		.mes-box {
-			background: #FFDAB9;
-			border-radius: 15px;
-			width: auto;
-			padding: 15px;
-			margin-bottom: 50px;
-			max-width: 700px;
-		}
+  <style>
+    .mes-box {
+      background: #FFDAB9; 
+      border-radius: 15px;
+      width: auto;
+      padding: 15px;
+      margin-bottom: 50px;
+      max-width: 700px;
+      word-wrap: break-word;
+    }
 
-		.mes-author {
-			display: none;
-		}
+    .mes-author {
+      display: none;
+    }
 
-		.mes-date {
-			display: inline-block;
-			font-size: 10px;
-			font-style: italic;
-		}
+    .mes-date {
+      display: inline-block;
+      font-size: 10px;
+      font-style: italic;
+    }
 
-		.mess-text {
-			font-size: 50px;
-			font-family: Segoe UI;
-			line-height: 45px;
-			font-color: black; 
-			background: #FFDAB9;
-			border: .5em solid 	#FFDAB9;
-			max-width: 700px;
-		}
-	  
+    .mess-text {
+      font-size: 50px;
+      font-family: Segoe UI;
+      line-height: 45px;
+      font-color: black; 
+      background: #FFDAB9;
+      border: .5em solid     #FFDAB9;
+      max-width: 700px;
+    }
+    
     </style>
-	<div class = "mes-box">
-			<span class="mes-author"></span>
-			<p class="mes-text"></p>
-			<span class="mes-date"></span>
-	</div>
+  <div class = "mes-box">
+    <span class="mes-author"></span>
+    <p class="mes-text"></p>
+  <span class="mes-date"></span>
+  </div>
 `;
 
 class Message extends HTMLElement {
