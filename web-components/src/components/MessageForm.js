@@ -72,18 +72,16 @@ class MessageForm extends HTMLElement {
     this.$form.addEventListener('submit', this._onSubmit.bind(this));
     this.$form.addEventListener('keypress', this._onKeyPress.bind(this));
 
-    if (localStorage.length > 0) {
-      const arrMessages = localStorage.getItem('ID-messages');
-      if (arrMessages !== null) {
-        const arr = JSON.parse(arrMessages);
-        for (let i = 0; i < arrMessages.length; i += 1) {
-          const $messageElement = document.createElement('message-box');
-          const currentMessage = arr[i].split(`${this.separator}`);
-          $messageElement.dateM = currentMessage[0];
-          $messageElement.authorM = currentMessage[1];
-          $messageElement.textM = currentMessage[2];
-          this.$message.appendChild($messageElement);
-        }
+    const arrMessages = localStorage.getItem('ID-messages');
+    if (arrMessages !== null) {
+      const arr = JSON.parse(arrMessages);
+      for (let i = 0; i < arrMessages.length; i += 1) {
+        const $messageElement = document.createElement('message-box');
+        const currentMessage = arr[i].split(`${this.separator}`);
+        $messageElement.dateM = currentMessage[0];
+        $messageElement.authorM = currentMessage[1];
+        $messageElement.textM = currentMessage[2];
+        this.$message.appendChild($messageElement);
       }
     }
   }
@@ -110,6 +108,7 @@ class MessageForm extends HTMLElement {
       }
       this.$message.appendChild($newMessage);
       this.$input.value = '';
+      window.scrollTo(0, document.body.scrollHeight);
     }
   }
 
