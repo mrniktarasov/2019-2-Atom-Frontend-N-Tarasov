@@ -3,6 +3,9 @@
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
+        :host {
+          display: none;
+        }
         form-input {
             width: auto;
         }
@@ -22,17 +25,7 @@ template.innerHTML = `
             padding: 50px;
             overflow: hidden;
             overflow-y: auto;
-            margin-top: 220px;
             margin-bottom: 80px;
-        }
-
-        .header {
-            background: rgb(212, 1, 254);
-            height: 250px;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            text-align: center;
         }
         
         input[type=submit] {
@@ -52,7 +45,7 @@ template.innerHTML = `
         }
     </style>
     <form>
-        <div class='header'></div>
+        <chat-header></chat-header>
         <div class="result"></div>
         <form-input name="message-text" placeholder="Введите сообщение"></form-input>
     </form>
@@ -72,7 +65,10 @@ class MessageForm extends HTMLElement {
     this.$form.addEventListener('submit', this._onSubmit.bind(this));
     this.$form.addEventListener('keypress', this._onKeyPress.bind(this));
 
-    const arrMessages = localStorage.getItem('ID-messages');
+    document.addEventListener('goToChat', this._onGoToChat.bind(this));
+    document.addEventListener('groupListIsReady', this._onGroupListReady.bind(this));
+
+    const arrMessages = localStorage.getItem(this.key);
     if (arrMessages !== null) {
       const arr = JSON.parse(arrMessages);
       for (let i = 0; i < arrMessages.length; i += 1) {
@@ -117,6 +113,44 @@ class MessageForm extends HTMLElement {
       this.$form.dispatchEvent(new Event('submit'));
     }
   }
+
+  _onGroupListReady() {
+    this.$message.innerText = '';
+    this.style.display = 'none';
+  }
+
+  _onGoToChat(event) {
+    this.key = event.detail.key;
+    const IDgroups = event.detail.IDgroups;
+    const groupJSON = localStorage.getItem(IDgroups);
+    let currentGroup = null;
+
+    if (groupJSON !== null) {
+      const group = JSON.parse(groupJSON);
+      for (let i = 0; i < group.length; i += 1) {
+        if (group[i].key === this.key) {
+          currentGroup = group[i];
+        }
+      }
+      if (!Object.is(currentGroup, null)) {
+        if (!Object.is(currentGroup.messages, undefined)) {
+          for (let i = 0; i < currentGroup.messages.length; i += 1) {
+            const $messageElement = document.createElement('message-box');
+            const currentMessage = currentGroup.messages[i].split(`${this.separator}`);
+            $messageElement.dateM = currentMessage[0];
+            $messageElement.authorM = currentMessage[1];
+            $messageElement.textM = currentMessage[2];
+            this.$message.appendChild($messageElement);
+          }
+        }
+        document.dispatchEvent(new CustomEvent('messageFormIsReady', {
+          detail: { name: currentGroup.sender },
+        }));
+        this.style.display = 'block';
+      }
+    }
+  }
 }
+
 
 customElements.define('message-form', MessageForm);
