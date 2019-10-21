@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-alert */
 /* eslint-disable consistent-return */
 /* eslint-disable class-methods-use-this */
