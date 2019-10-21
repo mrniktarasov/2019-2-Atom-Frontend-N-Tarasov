@@ -45,7 +45,7 @@ template.innerHTML = `
             height: 60px;
             width: 60px;
             margin-right: 20px;
-            background-image: url(../src/static/images/searchButton.png);
+            background-image: url(static/images/searchButton.png);
             background-size: cover;
             cursor: pointer;
         }

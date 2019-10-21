@@ -47,7 +47,7 @@ template.innerHTML = `
         width: 70px;
         margin: 5px 15px; 
         border-radius: 50%;
-        background-image: url(../src/static/images/avatar1); 
+        background-image: url(static/images/avatar1); 
         background-size: cover;
     }
 

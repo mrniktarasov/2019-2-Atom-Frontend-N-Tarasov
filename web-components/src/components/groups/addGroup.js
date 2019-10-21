@@ -13,7 +13,7 @@ template.innerHTML = `
         width: 140px;
         margin-right: 40px;
         margin-bottom: 40px;
-        background-image: url(../src/static/images/pen.svg);
+        background-image: url(static/images/pen.svg);
         background-size: cover;
         position: fixed;
         bottom: 0;
