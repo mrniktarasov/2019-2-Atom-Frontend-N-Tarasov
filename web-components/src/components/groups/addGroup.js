@@ -1,8 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-alert */
-/* eslint-disable consistent-return */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-underscore-dangle */
 // Icon pen.svg made by https://www.flaticon.com/authors/kiranshastry
 
 const template = document.createElement('template');
@@ -67,6 +62,7 @@ class Message extends HTMLElement {
       localStorage.setItem(this.IDgroups, JSON.stringify(groupsJSON));
     }
     document.dispatchEvent(new Event('NewGroup'));
+    return 0;
   }
 
   _onMessageFormISReady() {

@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -19,7 +18,7 @@ template.innerHTML = `
             width: 130px;
             height: 130px;
             text-decoration: none;
-            background-image: url(../src/static/images/hamburgerButton.png);
+            background-image: url(static/images/hamburgerButton.png);
             background-size: cover;
             cursor: pointer;
         }

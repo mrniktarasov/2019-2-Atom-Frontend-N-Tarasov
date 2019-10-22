@@ -22,5 +22,10 @@ module.exports = {
     'react',
   ],
   rules: {
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off",
+    "max-len": "off",
+    "no-alert": "off",
+    "prefer-destructuring": "off",
   },
 };

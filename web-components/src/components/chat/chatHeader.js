@@ -1,5 +1,3 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-underscore-dangle */
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -31,7 +29,7 @@ template.innerHTML = `
         margin: 5px;
         padding: 15px;
         text-decoration: none;
-        background-image: url(../src/static/images/backButton.png); 
+        background-image: url(static/images/backButton.png); 
         background-size: cover;
         z-index: 0;
         cursor: pointer;

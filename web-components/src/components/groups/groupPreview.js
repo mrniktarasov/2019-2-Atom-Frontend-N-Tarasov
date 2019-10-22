@@ -1,5 +1,3 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-underscore-dangle */
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -45,7 +43,7 @@ template.innerHTML = `
       .avatar {
         height: 80px;
         width: 80px;
-        background-image: url(../src/static/images/avatar1);
+        background-image: url(static/images/avatar1);
         background-size: cover;
         margin: 20px;
         border-radius: 50px;
@@ -69,7 +67,7 @@ template.innerHTML = `
       .readed {
         height: 40px;
         width: 40px;
-        background-image: url(../src/static/images/doubleTick.png);
+        background-image: url(static/images/doubleTick.png);
         background-size: cover;
       }
       .key {
