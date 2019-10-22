@@ -1,11 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "test": "eslint ./src/",
-    "start": "webpack-dev-server --mode=development --hot",
-    "build": "webpack --mode=development",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "test": "./node_modules/.bin/eslint ./src/",
+    "start": "webpack-dev-server --mode=development --hot",
+    "build": "webpack --mode=development"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
@@ -42,6 +42,5 @@
   "author": "",
   "license": "ISC",
   "homepage": "https://mrniktarasov.github.io/2019-2-Atom-Frontend-N-Tarasov/",
-  "deploy": "gh-pages -d build",
   "description": ""
 }
