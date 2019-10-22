@@ -6,7 +6,7 @@ template.innerHTML = `
         border-top: 5px solid silver;
         outline: none;
         width: 100%;
-        height: 130px;
+        height: 100px;
         font-size: 60px;
         padding: 25px 50px;
         margin: 0;

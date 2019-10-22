@@ -14,7 +14,7 @@ template.innerHTML = `
     .header {
         flex: auto;
         background: rgb(212, 1, 254);
-        height: 10vh;
+        height: 130px;
         width: 85%;
         text-align: center;
         display: flex;
