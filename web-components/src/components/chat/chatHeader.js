@@ -25,6 +25,7 @@ template.innerHTML = `
       align-items: center;
       cursor: pointer;
       transition: background-color 1s, border-radius 1s;
+      animation: pulse 2s;
     }
 
     .back-button-wrap:hover {
@@ -88,6 +89,7 @@ template.innerHTML = `
       width: 15vh;
       cursor: pointer;
       transition: background-color 1s, border-radius 1s;
+      animation: pulse 2s;
     }
 
     .three-dots-wrap:hover {
@@ -102,6 +104,18 @@ template.innerHTML = `
 
     .three-dots {
       margin: 2vh;
+    }
+
+    @keyframes pulse {
+      0% {
+          box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+        }
+        70% {
+            box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+        }
     }
 
     </style>

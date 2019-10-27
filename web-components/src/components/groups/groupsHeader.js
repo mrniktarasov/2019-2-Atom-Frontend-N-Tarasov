@@ -25,18 +25,6 @@ template.innerHTML = `
             animation: pulse 2s;
         }
 
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
-              }
-              70% {
-                  box-shadow: 0 0 0 10px rgba(204,169,44, 0);
-              }
-              100% {
-                  box-shadow: 0 0 0 0 rgba(204,169,44, 0);
-              }
-        }
-
         .hamburger:hover {
             background-color: #760677;
             border-radius: 50%;
@@ -72,6 +60,7 @@ template.innerHTML = `
             align-items: center;
             justify-content: center;
             transition: background-color 1s, border-radius 1s;
+            animation: pulse 2s;
         }
 
         .search-wrap:hover {
@@ -88,6 +77,18 @@ template.innerHTML = `
         .search-button {
             height: 40%;
             background-size: cover;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+              }
+              70% {
+                  box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+              }
+              100% {
+                  box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+              }
         }
 
     </style>
