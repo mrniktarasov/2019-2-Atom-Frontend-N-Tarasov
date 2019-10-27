@@ -3,22 +3,46 @@ template.innerHTML = `
     <style>
       .preview {
         width: 100vw;
-        height: 150px;
+        height: 20vh;
         display:flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         cursor: pointer;
         border-bottom: #d401fe36 solid 1px;
+        z-index: 0;
+        animation-name: appearence;
+        animation-duration: 1s;
+        transition: width 2s, background-color 1s;
+      }
+
+      @keyframes appearence {
+        from {
+          margin-left: 100%;
+          opacity: 0;
+        }
+
+        to {
+          margin-left: 0%;
+          opacity: 1;
+        }
+      }
+
+      .preview:active {
+        background-color: #f3adf5;
+        height: 19vh;
+        width: 99vw;
       }
 
       .preview:hover {
         background-color: #fedbff;
+        width: 90vw;
+        height: 19vh;
       }
 
       .left-side-wrap {
         display: flex;
-        jusrify-content: flex-start;
+        justify-content: flex-start;
         align-items: center;
       }
 
@@ -37,16 +61,16 @@ template.innerHTML = `
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        margin: 15px;
+        margin-right: 3vw;
       }
       
       .avatar {
-        height: 80px;
-        width: 80px;
-        background-image: url(static/images/avatar1);
+        height: 10vh;
+        width: 10vh;
+        background-image: url(static/images/avatar1.svg);
         background-size: cover;
         margin: 20px;
-        border-radius: 50px;
+        border-radius: 50%;
       }
 
       .avatar:hover {
