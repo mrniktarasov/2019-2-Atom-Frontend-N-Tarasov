@@ -1,6 +1,3 @@
-// Icon pen.svg made by https://www.flaticon.com/authors/kiranshastry
-//xer
-
 const template = document.createElement('template');
 template.innerHTML = `
   <style>
