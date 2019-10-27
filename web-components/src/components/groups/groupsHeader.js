@@ -3,7 +3,7 @@ template.innerHTML = `
     <style>
         .groups-header {
             background-color: rgb(212, 1, 254);
-            height: 130px;
+            height: 15vh;
             width: 100%;
             display: flex;
             flex-direction: row;
@@ -11,55 +11,94 @@ template.innerHTML = `
             align-items: center;
             position: fixed;
             top: 0;
+            z-index: 0;
         }
         .hamburger {
             position: relative;
             display: block;
-            width: 130px;
-            height: 130px;
+            height: 100%;
             text-decoration: none;
-            background-image: url(static/images/hamburgerButton.png);
             background-size: cover;
             cursor: pointer;
+            vertical-align: middle;
+            transition: background-color 1s, border-radius 1s;
+            animation: pulse 2s;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+              }
+              70% {
+                  box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+              }
+              100% {
+                  box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+              }
         }
 
         .hamburger:hover {
             background-color: #760677;
+            border-radius: 50%;
+            animation: none;
+        }
+
+        .hamburger:active {
+            background-color: rgb(165, 0, 197);
+            height: 14vh;
         }
 
         .mes-and-burg-wrap {
+            width: 15vh;
+            height: 15vh;
             display: flex;
             justify-content: flex-start;
             flex-direction: row;
             align-items: center;
         }
+
         .messeger {
             color: white;
             font-size: 5vh;
             font-weight: bold;
             margin-left: 5vh;
         }
+        
+        .search-wrap {
+            height: 15vh;
+            width: 15vh;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 1s, border-radius 1s;
+        }
+
+        .search-wrap:hover {
+            background-color: #760677;    
+            border-radius: 50%;      
+        }
+
+        .search-wrap:active {
+            background-color: rgb(165, 0, 197);
+            height: 14vh;
+            width: 14vh;
+        }
 
         .search-button {
-            height: 60px;
-            width: 60px;
-            margin-right: 20px;
-            background-image: url(static/images/searchButton.png);
+            height: 40%;
             background-size: cover;
-            cursor: pointer;
         }
 
-        .search-button:hover {
-            background-color: #760677;
-        }
-        
     </style>
     <div class="groups-header">
         <div class="mes-and-burg-wrap">
-            <div class="hamburger"></div>
-            <p class="messeger">Messeger</p>
-        </div>    
-        <div class="search-button"></div>
+            <img class="hamburger" src="static/images/hamburgerButton.png">
+            <p class="messeger">Messenger</p>
+        </div>
+        <div class="search-wrap">
+            <img class="search-button" src="static/images/searchButton.png">
+        </div>   
     </div>
 `;
 
