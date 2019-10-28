@@ -4,24 +4,49 @@ const template = document.createElement('template');
 template.innerHTML = `
   <style>
     .add-group {
-        height: 140px;
-        width: 140px;
-        margin-right: 40px;
-        margin-bottom: 40px;
-        background-image: url(static/images/pen.svg);
+        height: 15vh;
+        width: 15vh;
+        margin-right: 5vh;
+        margin-bottom: 5vw;
+        text-decoration: none;
         background-size: cover;
+        vertical-align: middle;
+        cursor: pointer;
+        background-image: url(static/images/pen.svg);
         position: fixed;
         bottom: 0;
         right: 0;
         background-color: #fba304;
-        border-radius: 20px;
+        border-radius: 15%;
+        transition: width 1s, height 1s, background-color 1s, border-radius 1s;
+        animation: pulse 2s;
     }
+
+    @keyframes pulse {
+      0% {
+          box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+        }
+        70% {
+            box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+        }
+  }
 
     .add-group:hover {
         background-color: #ff7500;
+        border-radius: 50%;
+        animation: none;
+    }
+
+    .add-group:active {
+      background-color: #c55c03;
+      height: 14vh;
+      width: 14vh;
     }
     </style>
-    <div class="add-group"></div>
+    <svg class="add-group" viewBox="0 0 180 180"></svg>
 `;
 
 class Message extends HTMLElement {

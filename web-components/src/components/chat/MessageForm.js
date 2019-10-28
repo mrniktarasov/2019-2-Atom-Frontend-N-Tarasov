@@ -22,8 +22,8 @@ template.innerHTML = `
             padding: 50px;
             overflow: hidden;
             overflow-y: auto;
-            margin-top: 130px;
-            margin-bottom: 130px;
+            margin-bottom: 15vh;
+            margin-top: 15vh;
         }
         
         input[type=submit] {

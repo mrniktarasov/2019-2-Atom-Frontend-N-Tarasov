@@ -3,11 +3,11 @@ const template = document.createElement('template');
 template.innerHTML = `
     <style>
     .groups {
-      height: 100vh;
       width: 100vw;
-      margin-top: 130px;
+      margin-top: 15vh;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
     </style>
     <div class="groups"></div>

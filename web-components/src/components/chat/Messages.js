@@ -3,12 +3,26 @@ template.innerHTML = `
   <style>
     .mes-box {
       background: #FFDAB9; 
-      border-radius: 15px;
+      border-radius: 15%;
       width: auto;
       padding: 15px;
       margin-bottom: 50px;
-      max-width: 700px;
+      max-width: 50vw;
       word-wrap: break-word;
+      animation-name: messageOut;
+      animation-duration: 1s;
+    }
+
+    @keyframes messageOut {
+      from {
+        opacity: 0;
+        width: 0 vh;
+      }
+
+      to {
+        opacity: 1;
+        width: auto;
+      }
     }
 
     .mes-author {
