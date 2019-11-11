@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-# Chat by Nikita
-
+# Atom Mail 2019 Nikita
