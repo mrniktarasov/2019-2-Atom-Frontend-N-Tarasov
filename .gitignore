@@ -134,7 +134,6 @@ dist/
 #### eslint ####
 # These rules are required to lint .eslintrc.js and friends.
 # It is not related to git in any manner.
-!.eslintrc.js
 !stylelint.config.js
 !.remarkrc.js
 
