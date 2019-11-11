@@ -9,11 +9,14 @@ script:
   - npm run test
   - npm run build
 
+before_install:
+  - cd web-components
+
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $repo_token
-  local_dir: build
+  local_dir: react-web-components/build
   on:
     branch:
       - master
