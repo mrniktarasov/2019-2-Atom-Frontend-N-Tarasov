@@ -18,6 +18,8 @@ module.exports = {
 			},
 		],
 
+		'scale-unlimited/declaration-strict-value': 'off',
+
 		// custom plugins to work with
 		'plugin/no-unsupported-browser-features': [
 			true,
