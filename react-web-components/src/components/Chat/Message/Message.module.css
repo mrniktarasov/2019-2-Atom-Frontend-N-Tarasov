@@ -1,45 +1,45 @@
 .mesBox {
-    background: #FFDAB9; 
-    border-radius: 15%;
-    width: auto;
-    padding: 15px;
-    margin-bottom: 50px;
-    max-width: 50vw;
-    word-wrap: break-word;
-    display: flex;
-    align-items: flex-end;
-    animation-name: messageOut;
-    animation-duration: 1s;
-  }
+	background: #ffdab9;
+	border-radius: 15%;
+	width: auto;
+	padding: 15px;
+	margin-bottom: 50px;
+	max-width: 50vw;
+	word-wrap: break-word;
+	display: flex;
+	align-items: flex-end;
+	animation-name: messageOut;
+	animation-duration: 1s;
+}
 
-  @keyframes messageOut {
-    from {
-      opacity: 0;
-      width: 0 vh;
-    }
+@keyframes messageOut {
+	from {
+		opacity: 0;
+		width: 0%;
+	}
 
-    to {
-      opacity: 1;
-      width: auto;
-    }
-  }
+	to {
+		opacity: 1;
+		width: auto;
+	}
+}
 
-  .mesAuthor {
-    display: none;
-  }
+.mesAuthor {
+	display: none;
+}
 
-  .mesDate {
-    display: inline-block;
-    font-size: 10px;
-    font-style: italic;
-  }
+.mesDate {
+	display: inline-block;
+	font-size: 10px;
+	font-style: italic;
+}
 
-  .mesText {
-    font-size: 4vh;
-    font-family: Segoe UI;
-    line-height: 45px;
-    color: black; 
-    background: #FFDAB9;
-    border: .5em solid     #FFDAB9;
-    max-width: 700px;
-  }
+.mesText {
+	font-size: 4vh;
+	font-family: Segoe UI;
+	line-height: 45px;
+	color: black;
+	background: #ffdab9;
+	border: 0.5em solid #ffdab9;
+	max-width: 700px;
+}

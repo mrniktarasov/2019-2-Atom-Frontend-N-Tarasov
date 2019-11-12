@@ -1,9 +1,9 @@
 form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
-input[type=submit] {
-    visibility: collapse;
+input[type='submit'] {
+	visibility: collapse;
 }

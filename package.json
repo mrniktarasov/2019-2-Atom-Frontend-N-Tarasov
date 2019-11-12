@@ -42,6 +42,7 @@
 		"rosie": "^2.0.1",
 		"stylelint": "^11.1.1",
 		"stylelint-a11y": "^1.2.2",
+		"stylelint-config-airbnb": "0.0.0",
 		"stylelint-config-css-modules": "^1.5.0",
 		"stylelint-no-unsupported-browser-features": "^3.0.2",
 		"stylelint-webpack-plugin": "^1.0.3"
@@ -66,7 +67,7 @@
 		"lint:check": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
 		"lint:js:fix": "npm run lint:js -- --fix",
 		"lint:js": "eslint src/**/*.js -c .eslintrc.json",
-		"lint:css": "stylelint 'src/**/*.{scss,css}' && stylelint --rd 'src/**/*.{scss,css}'",
+		"lint:css": "stylelint 'react-web-components/src/components/**/*.{scss,css}' && stylelint --rd 'react-web-components/src/components/**/*.{scss,css}'",
 		"lint:dup": "jscpd -g --threshold=1 tests docker",
 		"clean": "rm -rf build",
 		"test": "npm run test:engine && npm run lint",
