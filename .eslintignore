@@ -5,3 +5,4 @@ src/registerServiceWorker.js
 src/utils/serviceWorker.js
 src/**/__tests__/**
 src/
+src/styles/globalStyles.css
