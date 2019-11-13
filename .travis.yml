@@ -12,8 +12,8 @@ script:
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: $GITHUB_TOCKEN
-  local_dir: react-web-components/build
+  github_token: $repo_token
+  local_dir: build
   on:
     branch:
       - master

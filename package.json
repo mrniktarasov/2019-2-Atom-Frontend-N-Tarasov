@@ -1,6 +1,6 @@
 {
 	"name": "atom-mail-2019-nikita",
-	"homepage": "https://your_gh_login.github.io/your_repo_name",
+	"homepage": "https://mrniktarasov.github.io/2019-2-Atom-Frontend-N-Tarasov/",
 	"description": "Mail.Ru Group Frontend Atom course, 2019",
 	"version": "0.1.0",
 	"author": "Nikita",
@@ -67,7 +67,7 @@
 		"lint:check": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
 		"lint:js:fix": "npm run lint:js -- --fix",
 		"lint:js": "eslint src/**/*.js -c .eslintrc.json",
-		"lint:css": "stylelint 'react-web-components/src/components/**/*.{scss,css}' && stylelint --rd 'react-web-components/src/components/**/*.{scss,css}'",
+		"lint:css": "stylelint 'src/**/*.{scss,css}' && stylelint --rd 'src/**/*.{scss,css}'",
 		"lint:dup": "jscpd -g --threshold=1 tests docker",
 		"clean": "rm -rf build",
 		"test": "npm run test:engine && npm run lint",
