@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './FormInput.module.css';
 import { AppContext } from '../../../AppContext';
 
