@@ -1,15 +1,19 @@
 import React from 'react';
 import styles from './MessageField.module.css';
 import { Message } from '../Message/Message';
+import { AppContext } from '../../../AppContext';
 
 export function MessageField(props) {
 	const group = props.group;
 	const messages = getMessages(group);
 	return (
-		<div>
-			<ul className={styles.result}>{messages}</ul>
-			{document.dispatchEvent(new Event('scrollDown'))}
-		</div>
+		<AppContext>
+			{(value) => (
+				<div>
+					<ul className={styles.result}>{messages}</ul>
+				</div>
+			)}
+		</AppContext>
 	);
 }
 

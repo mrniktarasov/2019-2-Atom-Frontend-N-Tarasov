@@ -13,11 +13,16 @@ class App extends React.Component {
 			visibility: 'group',
 			IDgroups: info.IDgroups,
 			groupList: info.groupList,
+			messagesEnd: null,
 		};
 
 		this.newGroup = this.newGroup.bind(this);
 		this.openChat = this.openChat.bind(this);
 		this.closeChat = this.closeChat.bind(this);
+	}
+
+	componentDidUpdate() {
+		window.scrollTo(0, document.body.scrollHeight);
 	}
 
 	getInfo() {
@@ -57,9 +62,10 @@ class App extends React.Component {
 		});
 	}
 
-	newMessage() {
+	newMessage(el) {
 		this.setState({
 			addNewMessage: true,
+			messagesEnd: el,
 		});
 	}
 
