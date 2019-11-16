@@ -9,6 +9,8 @@ template.innerHTML = `
       margin-bottom: 50px;
       max-width: 50vw;
       word-wrap: break-word;
+      display: flex;
+      align-items: flex-end;
       animation-name: messageOut;
       animation-duration: 1s;
     }
@@ -35,11 +37,11 @@ template.innerHTML = `
       font-style: italic;
     }
 
-    .mess-text {
-      font-size: 50px;
+    .mes-text {
+      font-size: 4vh;
       font-family: Segoe UI;
       line-height: 45px;
-      font-color: black; 
+      color: black; 
       background: #FFDAB9;
       border: .5em solid     #FFDAB9;
       max-width: 700px;

@@ -1,8 +1,8 @@
-src/
 template/
 node_modules/
 build/
-!.eslintrc.js
 src/registerServiceWorker.js
 src/utils/serviceWorker.js
 src/**/__tests__/**
+src/
+src/styles/globalStyles.css
