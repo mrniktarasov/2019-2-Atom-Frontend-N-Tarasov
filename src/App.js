@@ -28,6 +28,7 @@ class App extends React.Component {
 				key: oneGroup.key,
 			};
 			routes.push(route);
+			return 0;
 		});
 		return routes;
 	}
