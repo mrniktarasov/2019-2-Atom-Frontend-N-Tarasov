@@ -1,38 +1,38 @@
 .profileWrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .putAvatarWrap {
-    margin-top: 15vh;
-    height: 20vh;
-    width: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center
+	margin-top: 15vh;
+	height: 20vh;
+	width: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .putAvatar {
-    height: 80%;
-    border-radius: 50%;
-    background-color: rgb(212, 1, 254);
+	height: 80%;
+	border-radius: 50%;
+	background-color: rgb(212, 1, 254);
 }
 
 .inputContainer {
-    margin-left: 5vw;
-    margin-right: 5vw;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
-    height: 10vh;
-    padding: 5px;
-    background-color: #8080804d;
-    border-radius: 5px;
-    border-bottom-color: rgba(128, 128, 128, 0.753);
-    font-size: 5vh;
+	margin-left: 5vw;
+	margin-right: 5vw;
+	margin-top: 3vh;
+	margin-bottom: 3vh;
+	height: 10vh;
+	padding: 5px;
+	background-color: #8080804d;
+	border-radius: 5px;
+	border-bottom-color: rgba(128, 128, 128, 0.753);
+	font-size: 5vh;
 }
 
 .rules {
-    font-size: 20px;
-    margin-left: 6vw;
+	font-size: 20px;
+	margin-left: 6vw;
 }
