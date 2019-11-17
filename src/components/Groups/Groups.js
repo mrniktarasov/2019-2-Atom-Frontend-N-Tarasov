@@ -9,17 +9,11 @@ export function Groups(props) {
 	return (
 		<AppContext.Consumer>
 			{(value) => {
-				let styleV = { display: 'block' };
-				if (value.state.visibility === 'chat') {
-					styleV = { display: 'none' };
-				}
 				return (
-					<div style={styleV}>
-						<div className={styles.groupsPanel}>
-							<GroupsHeader />
-							<GroupList />
-							<AddGroup />
-						</div>
+					<div className={styles.groupsPanel}>
+						<GroupsHeader />
+						<GroupList />
+						<AddGroup />
 					</div>
 				);
 			}}
