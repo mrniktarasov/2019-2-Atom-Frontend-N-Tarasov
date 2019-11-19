@@ -9,7 +9,7 @@
 	display: flex;
 	align-items: flex-end;
 	animation-name: messageOut;
-	animation-duration: 1s;
+	animation-duration: 0.5s;
 }
 
 @keyframes messageOut {

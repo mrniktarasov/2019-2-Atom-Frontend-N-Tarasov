@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from './ChatHeader.module.css';
-import { AppContext } from '../../../AppContext';
 import avatar from '../../../static/images/avatar1.svg';
 import threeDots from '../../../static/images/3dots.svg';
 import backButton from '../../../static/images/backButton.png';
+import { Link } from 'react-router-dom';
+import { AppContext } from '../../../AppContext';
 
 export function ChatHeader(props) {
 	const group = props.group;
@@ -11,15 +12,19 @@ export function ChatHeader(props) {
 		<AppContext.Consumer>
 			{(value) => (
 				<div className={styles.header}>
-					<div className={styles.backButtonWrap} onClick={value.closeChat}>
-						<img
-							className={styles.backButton}
-							alt="Back Button"
-							src={backButton}
-						/>
-					</div>
+					<Link to="/">
+						<div className={styles.backButtonWrap}>
+							<img
+								className={styles.backButton}
+								alt="Back Button"
+								src={backButton}
+							/>
+						</div>
+					</Link>
 					<div className={styles.avatarAndSenderWrap}>
-						<img className={styles.avatar} alt="Avatar" src={avatar} />
+						<Link to={`/profile/${group.key}`}>
+							<img className={styles.avatar} alt="Avatar" src={avatar} />
+						</Link>
 						<div className={styles.senderInfo}>
 							<div className={styles.name}>
 								{group === null ? null : group.sender}

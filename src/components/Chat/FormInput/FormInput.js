@@ -1,5 +1,5 @@
 import React from 'react';
-import './FormInput.module.css';
+import styles from './FormInput.module.css';
 import { AppContext } from '../../../AppContext';
 
 export function FormInput(props) {
@@ -42,6 +42,7 @@ export function FormInput(props) {
 			{(value) => {
 				return (
 					<input
+						className={styles.inputChat}
 						type="text"
 						name="message-text"
 						placeholder="Введите сообщение"

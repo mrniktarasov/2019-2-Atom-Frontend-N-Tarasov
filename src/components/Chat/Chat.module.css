@@ -1,9 +1,23 @@
-form {
+.chat {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	animation-name: messageOut;
+	animation-duration: 0.5s;
 }
 
 input[type='submit'] {
 	visibility: collapse;
+}
+
+@keyframes chatOut {
+	from {
+		opacity: 0;
+		width: 0%;
+	}
+
+	to {
+		opacity: 1;
+		width: auto;
+	}
 }

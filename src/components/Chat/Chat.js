@@ -1,30 +1,22 @@
 import React from 'react';
-import './Chat.module.css';
+import styles from './Chat.module.css';
 import { ChatHeader } from './ChatHeader/ChatHeader';
 import { FormInput } from './FormInput/FormInput';
 import { AppContext } from '../../AppContext';
 import { MessageField } from './MessageField/MessageField';
 
 export function Chat(props) {
+	const keyChat = props.keyChat;
 	return (
 		<AppContext.Consumer>
 			{(value) => {
-				const group = getCurrentGroup(
-					value.state.groupList,
-					value.state.openedChat,
-				);
-				let style = { display: 'none' };
-				if (value.state.visibility === 'chat') {
-					style = { display: 'block' };
-				}
+				const group = getCurrentGroup(value.state.groupList, keyChat);
 				return (
-					<div style={style}>
-						<form>
-							<ChatHeader group={group} />
-							<MessageField group={group} />
-							<FormInput group={group} />
-						</form>
-					</div>
+					<form className={styles.chat}>
+						<ChatHeader group={group} />
+						<MessageField group={group} />
+						<FormInput group={group} />
+					</form>
 				);
 			}}
 		</AppContext.Consumer>
