@@ -23,13 +23,15 @@ class App extends React.Component {
 
 	makeRoutes(groupList) {
 		let routes = [];
-		groupList.map((oneGroup) => {
-			const route = {
-				key: oneGroup.key,
-			};
-			routes.push(route);
-			return 0;
-		});
+		if (!Object.is(groupList, null)) {
+			groupList.map((oneGroup) => {
+				const route = {
+					key: oneGroup.key,
+				};
+				routes.push(route);
+				return 0;
+			});
+		}
 		return routes;
 	}
 

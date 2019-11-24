@@ -1,14 +1,19 @@
 import React from 'react';
 import styles from './FormInput.module.css';
 import { AppContext } from '../../../AppContext';
+import { PaperClip } from './PaperClip/PaperClip';
+import { Microphone } from './Microphone/Microphone';
 
 export function FormInput(props) {
 	let group = props.group;
+	const setMenuVis = props.setMenuVis;
+	const menuVis = props.menuVis;
 
 	function handleKeyPress(event) {
 		if (event.charCode === 13) {
 			event.preventDefault();
 			const separator = '!@#';
+			const type = 'text';
 			const author = 'you';
 			const text = event.target.value;
 			const currentDate = new Date();
@@ -18,12 +23,12 @@ export function FormInput(props) {
 				.join(':');
 			try {
 				group.messages.push(
-					`${mesKey}${separator}${currentTime}${separator}${author}${separator}${text}`,
+					`${mesKey}${separator}${currentTime}${separator}${author}${separator}${text}${separator}${type}`,
 				);
 			} catch {
 				group.messages = [];
 				group.messages.push(
-					`${mesKey}${separator}${currentTime}${separator}${author}${separator}${text}`,
+					`${mesKey}${separator}${currentTime}${separator}${author}${separator}${text}${separator}${type}`,
 				);
 			}
 			group.lastMessageTime = currentTime;
@@ -37,17 +42,22 @@ export function FormInput(props) {
 			return 0;
 		}
 	}
+
 	return (
 		<AppContext.Consumer>
 			{(value) => {
 				return (
-					<input
-						className={styles.inputChat}
-						type="text"
-						name="message-text"
-						placeholder="Введите сообщение"
-						onKeyPress={handleKeyPress.bind(value)}
-					/>
+					<div className={styles.dropMenuAndInputWrap}>
+						<PaperClip setMenuVis={setMenuVis} menuVis={menuVis} />
+						<input
+							className={styles.inputChat}
+							type="text"
+							name="message-text"
+							placeholder="Введите сообщение"
+							onKeyPress={handleKeyPress.bind(value)}
+						/>
+						<Microphone group={group} value={value} />
+					</div>
 				);
 			}}
 		</AppContext.Consumer>

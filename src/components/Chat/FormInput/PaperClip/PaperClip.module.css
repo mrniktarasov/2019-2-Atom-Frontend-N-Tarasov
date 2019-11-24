@@ -1,0 +1,18 @@
+.paperClip {
+	height: 10vh;
+	width: 10vh;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	text-align: center;
+	cursor: pointer;
+	z-index: 1;
+	text-decoration: none;
+	background-size: cover;
+	border-top: 5px solid silver;
+	transition: background-color 1s;
+}
+
+.paperClip:hover {
+	background-color: silver;
+}

@@ -1,0 +1,22 @@
+.box {
+	height: 120px;
+	width: 40px;
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	margin-bottom: 10vh;
+}
+
+.dropOption {
+	height: 10vh;
+	width: 10vh;
+	border: 1px solid rgba(192, 192, 192, 0.411);
+	background-color: rgba(192, 192, 192, 0.411);
+	border-radius: 50%;
+}
+
+.dropOption:hover {
+	background-color: silver;
+}

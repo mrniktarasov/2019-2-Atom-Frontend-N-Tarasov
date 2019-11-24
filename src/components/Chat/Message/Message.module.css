@@ -1,6 +1,6 @@
 .mesBox {
 	background: #ffdab9;
-	border-radius: 15%;
+	border-radius: 10%;
 	width: auto;
 	padding: 15px;
 	margin-bottom: 50px;
@@ -8,6 +8,7 @@
 	word-wrap: break-word;
 	display: flex;
 	align-items: flex-end;
+	flex-direction: column;
 	animation-name: messageOut;
 	animation-duration: 0.5s;
 }
@@ -35,11 +36,29 @@
 }
 
 .mesText {
+	border-radius: 10%;
+	word-wrap: break-word;
 	font-size: 4vh;
 	font-family: Segoe UI;
 	line-height: 45px;
 	color: black;
 	background: #ffdab9;
-	border: 0.5em solid #ffdab9;
-	max-width: 700px;
+	max-width: 100%;
+}
+
+.ref {
+	border-radius: 10%;
+	word-wrap: break-word;
+	font-size: 4vh;
+	font-family: Segoe UI;
+	line-height: 45px;
+	background: #ffdab9;
+	max-width: 100%;
+}
+
+.img {
+	height: 10vh;
+	width: 10vh;
+	max-width: 100%;
+	background-size: cover;
 }
