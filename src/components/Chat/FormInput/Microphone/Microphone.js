@@ -20,6 +20,7 @@ export function Microphone(props) {
 				handleBlob(blob);
 				const audioURL = URL.createObjectURL(blob);
 				addMessage(audioURL);
+				stream.getTracks().forEach((track) => track.stop());
 			});
 			mediaRecorder.addEventListener('dataavailable', (event) => {
 				chuncks.push(event.data);
@@ -64,6 +65,8 @@ export function Microphone(props) {
 			method: 'POST',
 			mode: 'no-cors',
 			body: data,
+		}).catch((err) => {
+			console.log(err);
 		});
 	}
 
