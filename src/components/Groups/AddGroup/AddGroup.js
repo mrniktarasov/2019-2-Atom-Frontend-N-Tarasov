@@ -46,6 +46,10 @@ function clickedOnAddGroup(value) {
 		value.state.IDgroups,
 		JSON.stringify(value.state.groupList),
 	);
+	const route = {
+		key,
+	};
+	value.state.routes.push(route);
 	value.newGroup();
 	return 0;
 }
