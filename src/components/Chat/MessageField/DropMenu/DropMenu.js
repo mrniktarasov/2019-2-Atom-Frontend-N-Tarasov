@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { AppContext } from '../../../../AppContext';
 import styles from './DropMenu.module.css';
 import placeholder from '../../../../static/images/placeholder.svg';
