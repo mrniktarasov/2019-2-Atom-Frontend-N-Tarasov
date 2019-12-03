@@ -31,9 +31,6 @@ function clickedOnAddGroup(value) {
 		sender,
 		messages: null,
 		lastMessage: 'Сообщений пока нет',
-		lastMessageTime: [date.getHours(), date.getMinutes()]
-			.map((x) => (x < 10 ? `0${x}` : x))
-			.join(':'),
 	};
 	try {
 		value.state.groupList.push(group);
