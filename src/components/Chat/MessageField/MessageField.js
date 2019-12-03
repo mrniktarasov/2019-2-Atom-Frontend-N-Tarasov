@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './MessageField.module.css';
 import { Message } from '../Message/Message';
 import { DropMenu } from './DropMenu/DropMenu';
@@ -6,9 +6,8 @@ import { AppContext } from '../../../AppContext';
 
 export function MessageField(props) {
 	const group = props.group;
-
 	const menuVis = props.menuVis;
-	const messages = getMessages(group);
+	const [messages, setMessages] = useState([]);
 
 	function handleDrop(event) {
 		preventAndStop(event);
@@ -73,7 +72,9 @@ export function MessageField(props) {
 		event.preventDefault();
 		event.stopPropagation();
 	};
+
 	if (group.key !== '1') {
+		const messages = getMessages(group);
 		return (
 			<AppContext.Consumer>
 				{(value) => (
@@ -89,14 +90,7 @@ export function MessageField(props) {
 			</AppContext.Consumer>
 		);
 	} else {
-		/*let messages = null;
-		const pollItems = () => {
-			fetch('https://127.0.0.1:8000/chats/chat/1/get_message_list')
-			  .then(resp => resp.json())
-			  .then(data => console.log(data));
-		  }
-		  
-		  const t = setInterval(() => pollItems(), 3000); */
+		getMessagesSpecial(group, messages, setMessages);
 		return (
 			<AppContext.Consumer>
 				{(value) => (
@@ -140,4 +134,49 @@ function getMessages(group) {
 		});
 	}
 	return elems;
+}
+
+function getMessagesSpecial(group, messages, setMessages) {
+	const pollItems = () => {
+		fetch(`https://127.0.0.1:8000/chats/chat/${group.key}/get_message_list/`, {
+			method: 'GET',
+			mode: 'cors',
+			credentials: 'include',
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				let elems = null;
+				if (!Object.is(messages, undefined)) {
+					debugger;
+					console.log(data);
+					elems = data.messages.map((oneMessage) => {
+						debugger;
+						return (
+							<li key={oneMessage.id}>
+								<Message
+									id={oneMessage.id}
+									time={getTime(oneMessage.date)}
+									sender={'you'}
+									text={oneMessage.content}
+									type={'text'}
+								/>
+							</li>
+						);
+					});
+					setMessages(elems);
+				}
+			})
+			.catch((err) => console.log(err));
+	};
+	const t = setInterval(() => pollItems(), 5000);
+}
+
+function getTime(date) {
+	const currentDate = new Date(date);
+	const currentTime = [currentDate.getHours(), currentDate.getMinutes()]
+		.map((x) => (x < 10 ? `0${x}` : x))
+		.join(':');
+	return currentTime;
 }

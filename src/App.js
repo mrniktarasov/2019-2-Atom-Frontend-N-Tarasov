@@ -10,11 +10,6 @@ class App extends React.Component {
 		super(props);
 		debugger;
 		const info = this.getInfo();
-		/*	if (info.groupList === null) {
-			const commonChat = this.createCommonChat();
-			info.groupList = [];
-			info.groupList.push(commonChat);
-		}*/
 		const routes = this.makeRoutes(info.groupList);
 		this.state = {
 			addNewGroup: false,
@@ -24,6 +19,7 @@ class App extends React.Component {
 			messagesEnd: null,
 			routes,
 		};
+		this.createCommonChat();
 		this.newGroup = this.newGroup.bind(this);
 	}
 
@@ -62,36 +58,43 @@ class App extends React.Component {
 		return info;
 	}
 
-	/*createCommonChat() {
+	createCommonChat() {
+		const keyDB = '1';
 		let sender;
-		/* const keyDB = '28';
-		let sender;
-		const response = fetch(`https://127.0.0.1:8000/chats/chat/${keyDB}/`, {
+		fetch(`https://127.0.0.1:8000/chats/chat/${keyDB}/`, {
 			method: 'GET',
 			mode: 'cors',
-			credentials: 'include'
-		}).then( function(response){
-			debugger;
-			return response.json();
-		}).then( function(data){
-				console.log(data)
+			credentials: 'include',
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
 				sender = data.topic;
-				const date = data.;
 				const key = keyDB;
 				const group = {
 					key,
-					date,
 					sender,
 					messages: null,
 					lastMessage: 'Сообщений пока нет',
-					lastMessageTime: [date.getHours(), date.getMinutes()]
-						.map((x) => (x < 10 ? `0${x}` : x))
-						.join(':'),
 				};
-				return group
-		  }).catch ( err => console.log(err)) 
+				try {
+					this.state.groupList.push(group);
+				} catch {
+					this.state.groupList = [];
+					this.state.groupList.push(group);
+				}
+				const route = {
+					key,
+				};
+				this.state.routes.push(route);
+				this.setState({
+					addNewGroup: true,
+				});
+			})
+			.catch((err) => console.log(err));
 
-		sender = 'Common chat'//data.topic;
+		/*sender = 'Common chat'//data.topic;
 		const date = new Date();
 		const key = '1';
 		const group = {
@@ -115,9 +118,8 @@ class App extends React.Component {
 			response => {
 				console.log('Common chat has been created')
 			}
-		).catch( error => console.log(error))
-		return group; 
-	} */
+		).catch( error => console.log(error))*/
+	}
 
 	newGroup() {
 		this.setState({
