@@ -6,6 +6,7 @@ import { AppContext } from '../../../AppContext';
 
 export function MessageField(props) {
 	const group = props.group;
+
 	const menuVis = props.menuVis;
 	const messages = getMessages(group);
 
@@ -72,21 +73,45 @@ export function MessageField(props) {
 		event.preventDefault();
 		event.stopPropagation();
 	};
-
-	return (
-		<AppContext.Consumer>
-			{(value) => (
-				<div
-					onDragEnter={preventAndStop}
-					onDragOver={preventAndStop}
-					onDrop={handleDrop.bind(value)}
-				>
-					<ul className={styles.result}>{messages}</ul>
-					<DropMenu visibility={menuVis} group={group} />
-				</div>
-			)}
-		</AppContext.Consumer>
-	);
+	if (group.key !== '1') {
+		return (
+			<AppContext.Consumer>
+				{(value) => (
+					<div
+						onDragEnter={preventAndStop}
+						onDragOver={preventAndStop}
+						onDrop={handleDrop.bind(value)}
+					>
+						<ul className={styles.result}>{messages}</ul>
+						<DropMenu visibility={menuVis} group={group} />
+					</div>
+				)}
+			</AppContext.Consumer>
+		);
+	} else {
+		/*let messages = null;
+		const pollItems = () => {
+			fetch('https://127.0.0.1:8000/chats/chat/1/get_message_list')
+			  .then(resp => resp.json())
+			  .then(data => console.log(data));
+		  }
+		  
+		  const t = setInterval(() => pollItems(), 3000); */
+		return (
+			<AppContext.Consumer>
+				{(value) => (
+					<div
+						onDragEnter={preventAndStop}
+						onDragOver={preventAndStop}
+						onDrop={handleDrop.bind(value)}
+					>
+						<ul className={styles.result}>{messages}</ul>
+						<DropMenu visibility={menuVis} group={group} />
+					</div>
+				)}
+			</AppContext.Consumer>
+		);
+	}
 }
 
 function getMessages(group) {

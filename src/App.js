@@ -9,6 +9,11 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		const info = this.getInfo();
+		/*	if (info.groupList === null) {
+			const commonChat = this.createCommonChat();
+			info.groupList = [];
+			info.groupList.push(commonChat);
+		}*/
 		const routes = this.makeRoutes(info.groupList);
 		this.state = {
 			addNewGroup: false,
@@ -53,8 +58,69 @@ class App extends React.Component {
 				IDgroups,
 			};
 		}
+		info = {
+			groupList: null,
+			IDgroups,
+		};
 		return info;
 	}
+
+	/*createCommonChat() {
+		let sender;
+		/* const keyDB = '28';
+		let sender;
+		const response = fetch(`https://127.0.0.1:8000/chats/chat/${keyDB}/`, {
+			method: 'GET',
+			mode: 'cors',
+			credentials: 'include'
+		}).then( function(response){
+			debugger;
+			return response.json();
+		}).then( function(data){
+				console.log(data)
+				sender = data.topic;
+				const date = data.;
+				const key = keyDB;
+				const group = {
+					key,
+					date,
+					sender,
+					messages: null,
+					lastMessage: 'Сообщений пока нет',
+					lastMessageTime: [date.getHours(), date.getMinutes()]
+						.map((x) => (x < 10 ? `0${x}` : x))
+						.join(':'),
+				};
+				return group
+		  }).catch ( err => console.log(err)) 
+
+		sender = 'Common chat'//data.topic;
+		const date = new Date();
+		const key = '1';
+		const group = {
+			key,
+			date,
+			sender,
+			messages: null,
+			lastMessage: 'Сообщений пока нет',
+			lastMessageTime: [date.getHours(), date.getMinutes()]
+				.map((x) => (x < 10 ? `0${x}` : x))
+				.join(':'),
+		};
+		const data = new FormData();
+		data.append('topic', sender);
+		fetch(`https://127.0.0.1:8000/chats/create_personal_chat/`, {
+			method: 'POST',
+			mode: 'cors',
+			credentials: 'include',
+			body: data,
+		}).then(
+			response => {
+				console.log('Common chat has been created')
+			}
+		).catch( error => console.log(error))
+		return group; 
+	} */
 
 	newGroup() {
 		this.setState({

@@ -33,10 +33,22 @@ export function FormInput(props) {
 			}
 			group.lastMessageTime = currentTime;
 			group.lastMessage = text;
-			localStorage.setItem(
-				this.state.IDgroups,
-				JSON.stringify(this.state.groupList),
-			);
+			if (group.key === '1') {
+				fetch(`https://127.0.0.1:8000/chats/chat/${group.key}/add_message`, {
+					method: 'POST',
+					headers: {
+						cors: 'no-cors',
+					},
+					body: {
+						content: text,
+					},
+				});
+			} else {
+				localStorage.setItem(
+					this.state.IDgroups,
+					JSON.stringify(this.state.groupList),
+				);
+			}
 			event.target.value = '';
 			this.newMessage();
 			return 0;
