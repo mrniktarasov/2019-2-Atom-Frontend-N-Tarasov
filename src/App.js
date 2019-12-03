@@ -79,18 +79,21 @@ class App extends React.Component {
 					lastMessageTime: null,
 					lastMessage: 'Сообщений пока нет',
 				};
+				let groups = this.state.groupList;
 				try {
-					this.state.groupList.push(group);
+					groups.push(group);
 				} catch {
-					this.state.groupList = [];
-					this.state.groupList.push(group);
+					groups = [];
+					groups.push(group);
 				}
+				let routes = this.state.routes;
 				const route = {
 					key,
 				};
-				this.state.routes.push(route);
+				routes.push(route);
 				this.setState({
-					addNewGroup: true,
+					routes: routes,
+					groupList: groups,
 				});
 			})
 			.catch((err) => console.log(err));
