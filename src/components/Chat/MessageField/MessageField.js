@@ -102,7 +102,6 @@ export function MessageField(props) {
 		getMessagesSpecial(group, setMessages, isMounted);
 		let elems = null;
 		if (messages.length > 0 && !Object.is(messages, undefined)) {
-			debugger;
 			group.lastMessage = messages[0].content;
 			group.lastMessageTime = getTime(messages[0].date);
 			elems = messages.map((oneMessage) => {
@@ -184,7 +183,7 @@ function getMessagesSpecial(group, setMessages, isMounted) {
 			})
 			.catch((err) => console.log(err));
 	};
-	const t = setInterval(() => pollItems(), 3000);
+	setInterval(() => pollItems(), 3000);
 }
 
 function getTime(date) {
