@@ -56,5 +56,7 @@ module.exports = {
 		'value-list-comma-newline-after': null,
 		'plugin/stylelint-no-indistinguishable-colors': null,
 		'font-weight-notation': null,
+		'react/no-direct-mutation-state': null,
+		'no-unused-vars': null,
 	},
 };

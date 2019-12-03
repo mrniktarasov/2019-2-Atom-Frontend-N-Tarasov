@@ -23,6 +23,10 @@ class App extends React.Component {
 		this.newGroup = this.newGroup.bind(this);
 	}
 
+	componentDidMount() {
+		window.scrollTo(0, document.body.scrollHeight);
+	}
+
 	makeRoutes(groupList) {
 		let routes = [];
 		if (!Object.is(groupList, null)) {
@@ -35,10 +39,6 @@ class App extends React.Component {
 			});
 		}
 		return routes;
-	}
-
-	componentDidUpdate() {
-		window.scrollTo(0, document.body.scrollHeight);
 	}
 
 	getInfo() {
@@ -76,6 +76,7 @@ class App extends React.Component {
 					key,
 					sender,
 					messages: null,
+					lastMessageTime: null,
 					lastMessage: 'Сообщений пока нет',
 				};
 				try {
