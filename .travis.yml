@@ -15,6 +15,7 @@ deploy:
   github_token: $repo_token
   local_dir: build
   on:
-    branch:
-      - master
-      - devel
+    branches:
+      only:
+        - master
+        - /^deploy-.*$/

@@ -8,6 +8,15 @@ export function MessageField(props) {
 	const group = props.group;
 	const menuVis = props.menuVis;
 	const [messages, setMessages] = useState([]);
+	const [isMounted, setIsMounted] = React.useState(false);
+
+	React.useEffect(() => {
+		setIsMounted(true);
+
+		return () => {
+			setIsMounted(false);
+		};
+	}, [setIsMounted]);
 
 	function handleDrop(event) {
 		preventAndStop(event);
@@ -90,7 +99,26 @@ export function MessageField(props) {
 			</AppContext.Consumer>
 		);
 	} else {
-		getMessagesSpecial(group, messages, setMessages);
+		getMessagesSpecial(group, setMessages, isMounted);
+		let elems = null;
+		if (messages.length > 0 && !Object.is(messages, undefined)) {
+			debugger;
+			group.lastMessage = messages[0].content;
+			group.lastMessageTime = getTime(messages[0].date);
+			elems = messages.map((oneMessage) => {
+				return (
+					<li key={oneMessage.id}>
+						<Message
+							id={oneMessage.id}
+							time={getTime(oneMessage.date)}
+							sender={'you'}
+							text={oneMessage.content}
+							type={'text'}
+						/>
+					</li>
+				);
+			});
+		}
 		return (
 			<AppContext.Consumer>
 				{(value) => (
@@ -99,7 +127,7 @@ export function MessageField(props) {
 						onDragOver={preventAndStop}
 						onDrop={handleDrop.bind(value)}
 					>
-						<ul className={styles.result}>{messages}</ul>
+						<ul className={styles.result}>{elems}</ul>
 						<DropMenu visibility={menuVis} group={group} />
 					</div>
 				)}
@@ -136,7 +164,7 @@ function getMessages(group) {
 	return elems;
 }
 
-function getMessagesSpecial(group, messages, setMessages) {
+function getMessagesSpecial(group, setMessages, isMounted) {
 	const pollItems = () => {
 		fetch(`https://127.0.0.1:8000/chats/chat/${group.key}/get_message_list/`, {
 			method: 'GET',
@@ -147,30 +175,16 @@ function getMessagesSpecial(group, messages, setMessages) {
 				return response.json();
 			})
 			.then((data) => {
-				let elems = null;
-				if (!Object.is(messages, undefined)) {
-					debugger;
-					console.log(data);
-					elems = data.messages.map((oneMessage) => {
-						debugger;
-						return (
-							<li key={oneMessage.id}>
-								<Message
-									id={oneMessage.id}
-									time={getTime(oneMessage.date)}
-									sender={'you'}
-									text={oneMessage.content}
-									type={'text'}
-								/>
-							</li>
-						);
-					});
-					setMessages(elems);
+				debugger;
+				if (!Object.is(isMounted, undefined)) {
+					if (isMounted) {
+						setMessages(data.messages);
+					}
 				}
 			})
 			.catch((err) => console.log(err));
 	};
-	const t = setInterval(() => pollItems(), 5000);
+	const t = setInterval(() => pollItems(), 3000);
 }
 
 function getTime(date) {
