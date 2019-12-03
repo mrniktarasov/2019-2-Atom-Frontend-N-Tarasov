@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 class App extends React.Component {
 	constructor(props) {
 		super(props);
+		debugger;
 		const info = this.getInfo();
 		/*	if (info.groupList === null) {
 			const commonChat = this.createCommonChat();
@@ -58,10 +59,6 @@ class App extends React.Component {
 				IDgroups,
 			};
 		}
-		info = {
-			groupList: null,
-			IDgroups,
-		};
 		return info;
 	}
 

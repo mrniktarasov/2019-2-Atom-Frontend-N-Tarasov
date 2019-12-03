@@ -14,7 +14,13 @@ export function PaperClip(props) {
 		}
 	}
 
-	window.addEventListener('click', handleOtherClick);
+	React.useEffect(() => {
+		window.addEventListener('click', handleOtherClick);
+
+		return () => {
+			window.removeEventListener('click', handleOtherClick);
+		};
+	}, []);
 
 	function handleClick() {
 		if (menuVis === true) {

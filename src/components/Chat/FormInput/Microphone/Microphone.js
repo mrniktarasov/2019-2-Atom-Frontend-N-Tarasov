@@ -12,23 +12,26 @@ export function Microphone(props) {
 	if (isPlaying) {
 		let chuncks = [];
 		const constrains = { audio: true };
-		navigator.mediaDevices.getUserMedia(constrains).then((stream) => {
-			mediaRecorder = new MediaRecorder(stream);
-			mediaRecorder.addEventListener('stop', (event) => {
-				const blob = new Blob(chuncks, { type: mediaRecorder.mimeType });
-				chuncks = [];
-				handleBlob(blob);
-				const audioURL = URL.createObjectURL(blob);
-				addMessage(audioURL);
-				stream.getTracks().forEach((track) => track.stop());
-			});
-			mediaRecorder.addEventListener('dataavailable', (event) => {
-				chuncks.push(event.data);
-			});
-			if (mediaRecorder !== null) {
-				mediaRecorder.start();
-			}
-		});
+		navigator.mediaDevices
+			.getUserMedia(constrains)
+			.then((stream) => {
+				mediaRecorder = new MediaRecorder(stream);
+				mediaRecorder.addEventListener('stop', (event) => {
+					const blob = new Blob(chuncks, { type: mediaRecorder.mimeType });
+					chuncks = [];
+					handleBlob(blob);
+					const audioURL = URL.createObjectURL(blob);
+					addMessage(audioURL);
+					stream.getTracks().forEach((track) => track.stop());
+				});
+				mediaRecorder.addEventListener('dataavailable', (event) => {
+					chuncks.push(event.data);
+				});
+				if (mediaRecorder !== null) {
+					mediaRecorder.start();
+				}
+			})
+			.catch((err) => console.log(err));
 	}
 
 	function addMessage(audioURL) {
