@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Chat.module.css';
 import { ChatHeader } from './ChatHeader/ChatHeader';
 import { FormInput } from './FormInput/FormInput';
@@ -7,6 +7,8 @@ import { MessageField } from './MessageField/MessageField';
 
 export function Chat(props) {
 	const keyChat = props.keyChat;
+	const [menuVis, setMenuVis] = useState(false);
+
 	return (
 		<AppContext.Consumer>
 			{(value) => {
@@ -14,8 +16,12 @@ export function Chat(props) {
 				return (
 					<form className={styles.chat}>
 						<ChatHeader group={group} />
-						<MessageField group={group} />
-						<FormInput group={group} />
+						<MessageField group={group} menuVis={menuVis} />
+						<FormInput
+							group={group}
+							setMenuVis={setMenuVis}
+							menuVis={menuVis}
+						/>
 					</form>
 				);
 			}}
