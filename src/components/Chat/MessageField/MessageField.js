@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './MessageField.module.css';
 import { Message } from '../Message/Message';
 import { DropMenu } from './DropMenu/DropMenu';
@@ -6,9 +6,17 @@ import { AppContext } from '../../../AppContext';
 
 export function MessageField(props) {
 	const group = props.group;
-
 	const menuVis = props.menuVis;
-	const messages = getMessages(group);
+	const [messages, setMessages] = useState([]);
+	const [isMounted, setIsMounted] = React.useState(false);
+
+	React.useEffect(() => {
+		setIsMounted(true);
+
+		return () => {
+			setIsMounted(false);
+		};
+	}, [setIsMounted]);
 
 	function handleDrop(event) {
 		preventAndStop(event);
@@ -73,7 +81,9 @@ export function MessageField(props) {
 		event.preventDefault();
 		event.stopPropagation();
 	};
+
 	if (group.key !== '1') {
+		const messages = getMessages(group);
 		return (
 			<AppContext.Consumer>
 				{(value) => (
@@ -89,14 +99,25 @@ export function MessageField(props) {
 			</AppContext.Consumer>
 		);
 	} else {
-		/*let messages = null;
-		const pollItems = () => {
-			fetch('https://127.0.0.1:8000/chats/chat/1/get_message_list')
-			  .then(resp => resp.json())
-			  .then(data => console.log(data));
-		  }
-		  
-		  const t = setInterval(() => pollItems(), 3000); */
+		getMessagesSpecial(group, setMessages, isMounted);
+		let elems = null;
+		if (messages.length > 0 && !Object.is(messages, undefined)) {
+			group.lastMessage = messages[0].content;
+			group.lastMessageTime = getTime(messages[0].date);
+			elems = messages.map((oneMessage) => {
+				return (
+					<li key={oneMessage.id}>
+						<Message
+							id={oneMessage.id}
+							time={getTime(oneMessage.date)}
+							sender={'you'}
+							text={oneMessage.content}
+							type={'text'}
+						/>
+					</li>
+				);
+			});
+		}
 		return (
 			<AppContext.Consumer>
 				{(value) => (
@@ -105,7 +126,7 @@ export function MessageField(props) {
 						onDragOver={preventAndStop}
 						onDrop={handleDrop.bind(value)}
 					>
-						<ul className={styles.result}>{messages}</ul>
+						<ul className={styles.result}>{elems}</ul>
 						<DropMenu visibility={menuVis} group={group} />
 					</div>
 				)}
@@ -140,4 +161,35 @@ function getMessages(group) {
 		});
 	}
 	return elems;
+}
+
+function getMessagesSpecial(group, setMessages, isMounted) {
+	const pollItems = () => {
+		fetch(`https://127.0.0.1:8000/chats/chat/${group.key}/get_message_list/`, {
+			method: 'GET',
+			mode: 'cors',
+			credentials: 'include',
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				debugger;
+				if (!Object.is(isMounted, undefined)) {
+					if (isMounted) {
+						setMessages(data.messages);
+					}
+				}
+			})
+			.catch((err) => console.log(err));
+	};
+	setInterval(() => pollItems(), 3000);
+}
+
+function getTime(date) {
+	const currentDate = new Date(date);
+	const currentTime = [currentDate.getHours(), currentDate.getMinutes()]
+		.map((x) => (x < 10 ? `0${x}` : x))
+		.join(':');
+	return currentTime;
 }

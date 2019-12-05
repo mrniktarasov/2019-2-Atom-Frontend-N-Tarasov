@@ -34,15 +34,18 @@ export function FormInput(props) {
 			group.lastMessageTime = currentTime;
 			group.lastMessage = text;
 			if (group.key === '1') {
-				fetch(`https://127.0.0.1:8000/chats/chat/${group.key}/add_message`, {
+				const data = new FormData();
+				data.append('content', text);
+				fetch(`https://127.0.0.1:8000/chats/chat/${group.key}/add_message/`, {
 					method: 'POST',
-					headers: {
-						cors: 'no-cors',
-					},
-					body: {
-						content: text,
-					},
-				});
+					mode: 'cors',
+					credentials: 'include',
+					body: data,
+				})
+					.then((response) => {
+						console.log('Message has been added');
+					})
+					.catch((error) => console.log(error));
 			} else {
 				localStorage.setItem(
 					this.state.IDgroups,
