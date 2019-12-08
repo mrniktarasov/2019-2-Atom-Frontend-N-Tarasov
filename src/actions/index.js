@@ -19,3 +19,23 @@ const getMessagesFailure = () => ({
 		error,
 	},
 });
+
+export const getMessages = (key) => {
+	return (dispatch, getState) => {
+		console.log('state: ', getState());
+		dispatch(getMessagesStarted());
+
+		fetch(`https://127.0.0.1:8000/chats/chat/${key}/get_message_list/`, {
+			method: 'GET',
+			mode: 'cors',
+			credentials: 'include',
+		})
+			.then((response) => {
+				dispatch(getMessagesSuccess(response.data));
+			})
+			.catch((err) => {
+				console.log(err);
+				dispatch(getMessagesFailure(err));
+			});
+	};
+};

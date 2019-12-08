@@ -19,35 +19,21 @@ export function AddGroup(props) {
 }
 
 function clickedOnAddGroup(value) {
-	const sender = prompt('Введите имя чата: ');
+	const topic = prompt('Введите имя чата: ');
 	if (Object.is(sender, null) || Object.is(sender, '')) {
 		return 1;
 	}
-	const date = new Date();
-	const key = date.getTime();
-	const group = {
-		key,
-		date,
-		sender,
-		messages: null,
-		lastMessage: 'Сообщений пока нет',
-	};
-	try {
-		value.state.groupList.push(group);
-	} catch {
-		const groups = [];
-		value.state.groupList = groups;
-		value.state.groupList.push(group);
-	}
-	debugger;
-	localStorage.setItem(
-		value.state.IDgroups,
-		JSON.stringify(value.state.groupList),
-	);
-	const route = {
-		key,
-	};
-	value.state.routes.push(route);
-	value.newGroup();
+	const data = new FormData();
+	data.append('topic', topic);
+	fetch(`https://127.0.0.1:8000/chats/create_personal_chat/`, {
+		method: 'POST',
+		mode: 'cors',
+		credentials: 'include',
+		body: data,
+	})
+		.then((response) => {
+			console.log('Message has been added');
+		})
+		.catch((error) => console.log(error));
 	return 0;
 }

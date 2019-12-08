@@ -12,46 +12,19 @@ export function FormInput(props) {
 	function handleKeyPress(event) {
 		if (event.charCode === 13) {
 			event.preventDefault();
-			const separator = '!@#';
-			const type = 'text';
-			const author = 'you';
 			const text = event.target.value;
-			const currentDate = new Date();
-			const mesKey = currentDate.getTime();
-			const currentTime = [currentDate.getHours(), currentDate.getMinutes()]
-				.map((x) => (x < 10 ? `0${x}` : x))
-				.join(':');
-			try {
-				group.messages.push(
-					`${mesKey}${separator}${currentTime}${separator}${author}${separator}${text}${separator}${type}`,
-				);
-			} catch {
-				group.messages = [];
-				group.messages.push(
-					`${mesKey}${separator}${currentTime}${separator}${author}${separator}${text}${separator}${type}`,
-				);
-			}
-			group.lastMessageTime = currentTime;
-			group.lastMessage = text;
-			if (group.key === '1') {
-				const data = new FormData();
-				data.append('content', text);
-				fetch(`https://127.0.0.1:8000/chats/chat/${group.key}/add_message/`, {
-					method: 'POST',
-					mode: 'cors',
-					credentials: 'include',
-					body: data,
+			const data = new FormData();
+			data.append('content', text);
+			fetch(`https://127.0.0.1:8000/chats/chat/${group.chat_id}/add_message/`, {
+				method: 'POST',
+				mode: 'cors',
+				credentials: 'include',
+				body: data,
+			})
+				.then((response) => {
+					console.log('Message has been added');
 				})
-					.then((response) => {
-						console.log('Message has been added');
-					})
-					.catch((error) => console.log(error));
-			} else {
-				localStorage.setItem(
-					this.state.IDgroups,
-					JSON.stringify(this.state.groupList),
-				);
-			}
+				.catch((error) => console.log(error));
 			event.target.value = '';
 			this.newMessage();
 			return 0;

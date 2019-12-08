@@ -5,6 +5,7 @@ import { DropMenu } from './DropMenu/DropMenu';
 import { AppContext } from '../../../AppContext';
 
 export function MessageField(props) {
+	debugger;
 	const group = props.group;
 	const menuVis = props.menuVis;
 	const [messages, setMessages] = useState([]);
@@ -82,94 +83,51 @@ export function MessageField(props) {
 		event.stopPropagation();
 	};
 
-	if (group.key !== '1') {
-		const messages = getMessages(group);
-		return (
-			<AppContext.Consumer>
-				{(value) => (
-					<div
-						onDragEnter={preventAndStop}
-						onDragOver={preventAndStop}
-						onDrop={handleDrop.bind(value)}
-					>
-						<ul className={styles.result}>{messages}</ul>
-						<DropMenu visibility={menuVis} group={group} />
-					</div>
-				)}
-			</AppContext.Consumer>
-		);
-	} else {
-		getMessagesSpecial(group, setMessages, isMounted);
-		let elems = null;
-		if (messages.length > 0 && !Object.is(messages, undefined)) {
-			group.lastMessage = messages[0].content;
-			group.lastMessageTime = getTime(messages[0].date);
-			elems = messages.map((oneMessage) => {
-				return (
-					<li key={oneMessage.id}>
-						<Message
-							id={oneMessage.id}
-							time={getTime(oneMessage.date)}
-							sender={'you'}
-							text={oneMessage.content}
-							type={'text'}
-						/>
-					</li>
-				);
-			});
-		}
-		return (
-			<AppContext.Consumer>
-				{(value) => (
-					<div
-						onDragEnter={preventAndStop}
-						onDragOver={preventAndStop}
-						onDrop={handleDrop.bind(value)}
-					>
-						<ul className={styles.result}>{elems}</ul>
-						<DropMenu visibility={menuVis} group={group} />
-					</div>
-				)}
-			</AppContext.Consumer>
-		);
-	}
-}
-
-function getMessages(group) {
-	const separator = '!@#';
-	let messages;
-	try {
-		messages = group.messages;
-	} catch {
-		messages = null;
-	}
+	getMessages(group, setMessages, isMounted);
 	let elems = null;
-	if (messages !== null) {
+	if (messages.length > 0 && !Object.is(messages, undefined)) {
+		group.lastMessage = messages[0].content;
+		group.lastMessageTime = getTime(messages[0].date);
 		elems = messages.map((oneMessage) => {
-			const data = oneMessage.split(separator);
 			return (
-				<li key={data[0]}>
+				<li key={oneMessage.id}>
 					<Message
-						id={data[0]}
-						time={data[1]}
-						sender={data[2]}
-						text={data[3]}
-						type={data[4]}
+						id={oneMessage.id}
+						time={getTime(oneMessage.date)}
+						sender={'you'}
+						text={oneMessage.content}
+						type={'text'}
 					/>
 				</li>
 			);
 		});
 	}
-	return elems;
+	return (
+		<AppContext.Consumer>
+			{(value) => (
+				<div
+					onDragEnter={preventAndStop}
+					onDragOver={preventAndStop}
+					onDrop={handleDrop.bind(value)}
+				>
+					<ul className={styles.result}>{elems}</ul>
+					<DropMenu visibility={menuVis} group={group} />
+				</div>
+			)}
+		</AppContext.Consumer>
+	);
 }
 
-function getMessagesSpecial(group, setMessages, isMounted) {
+function getMessages(group, setMessages, isMounted) {
 	const pollItems = () => {
-		fetch(`https://127.0.0.1:8000/chats/chat/${group.key}/get_message_list/`, {
-			method: 'GET',
-			mode: 'cors',
-			credentials: 'include',
-		})
+		fetch(
+			`https://127.0.0.1:8000/chats/chat/${group.chat_id}/get_message_list/`,
+			{
+				method: 'GET',
+				mode: 'cors',
+				credentials: 'include',
+			},
+		)
 			.then((response) => {
 				return response.json();
 			})

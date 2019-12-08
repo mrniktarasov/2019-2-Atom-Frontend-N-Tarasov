@@ -22,12 +22,12 @@ export function ChatHeader(props) {
 						</div>
 					</Link>
 					<div className={styles.avatarAndSenderWrap}>
-						<Link to={`/profile/${group.key}`}>
+						<Link to={`/profile/${group.chat_id}`}>
 							<img className={styles.avatar} alt="Avatar" src={avatar} />
 						</Link>
 						<div className={styles.senderInfo}>
 							<div className={styles.name}>
-								{group === null ? null : group.sender}
+								{group === null ? null : group.topic}
 							</div>
 							<div className={styles.lastTime}>16:00</div>
 						</div>

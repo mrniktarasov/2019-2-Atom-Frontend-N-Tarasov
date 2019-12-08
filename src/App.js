@@ -4,125 +4,33 @@ import { Chat } from './components/Chat/Chat';
 import { Profile } from './components/Profile/Profile';
 import { AppContext } from './AppContext';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store';
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
-		debugger;
-		const info = this.getInfo();
-		const routes = this.makeRoutes(info.groupList);
 		this.state = {
+			isMounted: false,
 			addNewGroup: false,
 			addNewMessage: false,
-			IDgroups: info.IDgroups,
-			groupList: info.groupList,
-			messagesEnd: null,
-			routes,
+			groupList: [],
+			routes: [],
 		};
-		this.createCommonChat();
+		this.getGroups();
 		this.newGroup = this.newGroup.bind(this);
+	}
+	componentWillUnmount() {
+		this.setState({
+			isMounted: false,
+		});
 	}
 
 	componentDidMount() {
 		window.scrollTo(0, document.body.scrollHeight);
-	}
-
-	makeRoutes(groupList) {
-		let routes = [];
-		if (!Object.is(groupList, null)) {
-			groupList.map((oneGroup) => {
-				const route = {
-					key: oneGroup.key,
-				};
-				routes.push(route);
-				return 0;
-			});
-		}
-		return routes;
-	}
-
-	getInfo() {
-		let info = null;
-		const IDgroups = 'IDgroups';
-		try {
-			info = {
-				groupList: JSON.parse(localStorage.getItem(IDgroups)),
-				IDgroups,
-			};
-		} catch {
-			info = {
-				groupList: null,
-				IDgroups,
-			};
-		}
-		return info;
-	}
-
-	createCommonChat() {
-		const keyDB = '1';
-		let sender;
-		fetch(`https://127.0.0.1:8000/chats/chat/${keyDB}/`, {
-			method: 'GET',
-			mode: 'cors',
-			credentials: 'include',
-		})
-			.then((response) => {
-				return response.json();
-			})
-			.then((data) => {
-				sender = data.topic;
-				const key = keyDB;
-				const group = {
-					key,
-					sender,
-					messages: null,
-					lastMessageTime: null,
-					lastMessage: 'Сообщений пока нет',
-				};
-				let groups = this.state.groupList;
-				try {
-					groups.push(group);
-				} catch {
-					groups = [];
-					groups.push(group);
-				}
-				let routes = this.state.routes;
-				const route = {
-					key,
-				};
-				routes.push(route);
-				this.setState({
-					routes: routes,
-					groupList: groups,
-				});
-			})
-			.catch((err) => console.log(err));
-
-		/*sender = 'Common chat'//data.topic;
-		const date = new Date();
-		const key = '1';
-		const group = {
-			key,
-			date,
-			sender,
-			messages: null,
-			lastMessage: 'Сообщений пока нет',
-			lastMessageTime: [date.getHours(), date.getMinutes()]
-				.map((x) => (x < 10 ? `0${x}` : x))
-				.join(':'),
-		};
-		const data = new FormData();
-		data.append('topic', sender);
-		fetch(`https://127.0.0.1:8000/chats/create_personal_chat/`, {
-			method: 'POST',
-			mode: 'cors',
-			credentials: 'include',
-			body: data,
-		}).then(
-			response => {
-				console.log('Common chat has been created')
-			}
-		).catch( error => console.log(error))*/
+		this.setState({
+			isMounted: true,
+		});
 	}
 
 	newGroup() {
@@ -131,11 +39,48 @@ class App extends React.Component {
 		});
 	}
 
-	newMessage(el) {
+	newMessage() {
 		this.setState({
 			addNewMessage: true,
-			messagesEnd: el,
 		});
+	}
+
+	makeRoutes(groups) {
+		let routes = [];
+		if (groups.length > 0) {
+			groups.map((oneGroup) => {
+				const route = {
+					key: oneGroup.chat_id,
+				};
+				routes.push(route);
+				return 0;
+			});
+		}
+		return routes;
+	}
+
+	getGroups() {
+		const pollItems = () => {
+			fetch(`https://127.0.0.1:8000/chats/get_chat_list/`, {
+				method: 'GET',
+				mode: 'cors',
+				credentials: 'include',
+			})
+				.then((response) => {
+					return response.json();
+				})
+				.then((data) => {
+					if (this.state.isMounted) {
+						const routes = this.makeRoutes(data.chats);
+						this.setState({
+							groupList: data.chats,
+							routes: routes,
+						});
+					}
+				})
+				.catch((err) => console.log(err));
+		};
+		setInterval(() => pollItems(), 3000);
 	}
 
 	render() {

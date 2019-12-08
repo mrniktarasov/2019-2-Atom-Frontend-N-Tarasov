@@ -30,10 +30,11 @@ export function Chat(props) {
 }
 
 function getCurrentGroup(groupList, key) {
+	debugger;
 	let currentGroup = null;
 	if (groupList !== null) {
 		for (let i = 0; i < groupList.length; i += 1) {
-			if (groupList[i].key === key) {
+			if (groupList[i].chat_id === key) {
 				currentGroup = groupList[i];
 				return currentGroup;
 			}
