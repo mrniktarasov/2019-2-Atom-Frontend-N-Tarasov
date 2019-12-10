@@ -24,10 +24,13 @@ function GroupList(props) {
 }
 
 function getTime(date) {
-	const currentDate = new Date(date);
-	const currentTime = [currentDate.getHours(), currentDate.getMinutes()]
-		.map((x) => (x < 10 ? `0${x}` : x))
-		.join(':');
+	let currentTime = null;
+	if (date) {
+		const currentDate = new Date(date);
+		currentTime = [currentDate.getHours(), currentDate.getMinutes()]
+			.map((x) => (x < 10 ? `0${x}` : x))
+			.join(':');
+	}
 	return currentTime;
 }
 

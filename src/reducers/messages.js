@@ -11,6 +11,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+	const messages = action.payload ? action.payload : [];
 	switch (action.type) {
 		case GET_MESSAGES_REQUEST:
 			return {
@@ -21,7 +22,7 @@ export default (state = initialState, action) => {
 			return {
 				loading: false,
 				error: null,
-				messages: [...action.payload],
+				messages: [...messages],
 			};
 		case GET_MESSAGES_FAILURE:
 			return {

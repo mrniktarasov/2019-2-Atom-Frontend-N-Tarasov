@@ -59,7 +59,6 @@ export function getMessages(key) {
 					return response.json();
 				})
 				.then((data) => {
-					debugger;
 					dispatch(getMessagesSuccess(data.messages));
 				})
 				.catch((err) => {

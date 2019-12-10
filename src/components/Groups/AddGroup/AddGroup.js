@@ -6,12 +6,13 @@ export function AddGroup(props) {
 		<svg
 			className={styles.addGroup}
 			viewBox="0 0 180 180"
-			onClick={() => clickedOnAddGroup}
+			onClick={clickedOnAddGroup}
 		/>
 	);
 }
 
 function clickedOnAddGroup() {
+	debugger;
 	const topic = prompt('Введите имя чата: ');
 	if (Object.is(topic, null) || Object.is(topic, '')) {
 		return 1;

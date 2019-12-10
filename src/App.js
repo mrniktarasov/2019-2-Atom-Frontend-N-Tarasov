@@ -7,9 +7,10 @@ import { connect } from 'react-redux';
 import { getChats } from './actions';
 
 function App(props) {
-	props.getChats();
-	const routes = props.routes;
-
+	const { getChats, routes, groups } = props;
+	if (!groups.length > 0) {
+		getChats();
+	}
 	return (
 		<Router>
 			<Switch>
@@ -34,6 +35,7 @@ function App(props) {
 const mapStateToProps = function(state) {
 	return {
 		routes: state.routes.routes,
+		groups: state.chats.chats,
 	};
 };
 

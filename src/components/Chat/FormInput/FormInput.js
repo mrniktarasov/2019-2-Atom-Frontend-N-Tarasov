@@ -25,7 +25,6 @@ export function FormInput(props) {
 				})
 				.catch((error) => console.log(error));
 			event.target.value = '';
-			this.newMessage();
 			return 0;
 		}
 	}
