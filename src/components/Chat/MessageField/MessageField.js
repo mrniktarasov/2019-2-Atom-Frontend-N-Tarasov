@@ -1,25 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './MessageField.module.css';
 import { Message } from '../Message/Message';
 import { DropMenu } from './DropMenu/DropMenu';
-import { AppContext } from '../../../AppContext';
+import { connect } from 'react-redux';
+import { getMessages } from '../../../actions';
 
-export function MessageField(props) {
-	debugger;
-	const group = props.group;
+function MessageField(props) {
+	props.getMessages(props.keyChat);
+	const { messages, group } = props;
 	const menuVis = props.menuVis;
-	const [messages, setMessages] = useState([]);
-	const [isMounted, setIsMounted] = React.useState(false);
 
-	React.useEffect(() => {
-		setIsMounted(true);
-
-		return () => {
-			setIsMounted(false);
-		};
-	}, [setIsMounted]);
-
-	function handleDrop(event) {
+	/* function handleDrop(event) {
 		preventAndStop(event);
 		const files = event.dataTransfer.files;
 		const MB = 1024 * 1024 * 4;
@@ -76,16 +67,15 @@ export function MessageField(props) {
 		);
 		value.newMessage();
 		return 0;
-	}
+	} */
 
-	const preventAndStop = (event) => {
+	/* const preventAndStop = (event) => {
 		event.preventDefault();
 		event.stopPropagation();
-	};
+	}; */
 
-	getMessages(group, setMessages, isMounted);
 	let elems = null;
-	if (messages.length > 0 && !Object.is(messages, undefined)) {
+	if (messages && messages.length > 0) {
 		group.lastMessage = messages[0].content;
 		group.lastMessageTime = getTime(messages[0].date);
 		elems = messages.map((oneMessage) => {
@@ -103,45 +93,15 @@ export function MessageField(props) {
 		});
 	}
 	return (
-		<AppContext.Consumer>
-			{(value) => (
-				<div
-					onDragEnter={preventAndStop}
-					onDragOver={preventAndStop}
-					onDrop={handleDrop.bind(value)}
-				>
-					<ul className={styles.result}>{elems}</ul>
-					<DropMenu visibility={menuVis} group={group} />
-				</div>
-			)}
-		</AppContext.Consumer>
+		<div
+		//onDragEnter={preventAndStop}
+		//onDragOver={preventAndStop}
+		//onDrop={handleDrop.bind(value)}
+		>
+			<ul className={styles.result}>{elems}</ul>
+			<DropMenu visibility={menuVis} group={group} />
+		</div>
 	);
-}
-
-function getMessages(group, setMessages, isMounted) {
-	const pollItems = () => {
-		fetch(
-			`https://127.0.0.1:8000/chats/chat/${group.chat_id}/get_message_list/`,
-			{
-				method: 'GET',
-				mode: 'cors',
-				credentials: 'include',
-			},
-		)
-			.then((response) => {
-				return response.json();
-			})
-			.then((data) => {
-				debugger;
-				if (!Object.is(isMounted, undefined)) {
-					if (isMounted) {
-						setMessages(data.messages);
-					}
-				}
-			})
-			.catch((err) => console.log(err));
-	};
-	setInterval(() => pollItems(), 3000);
 }
 
 function getTime(date) {
@@ -151,3 +111,9 @@ function getTime(date) {
 		.join(':');
 	return currentTime;
 }
+
+const mapStateToProps = (state) => ({
+	messages: state.messages.messages,
+});
+
+export default connect(mapStateToProps, { getMessages })(MessageField);

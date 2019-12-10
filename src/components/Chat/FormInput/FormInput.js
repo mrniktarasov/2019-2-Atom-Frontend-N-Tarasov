@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './FormInput.module.css';
-import { AppContext } from '../../../AppContext';
 import { PaperClip } from './PaperClip/PaperClip';
 import { Microphone } from './Microphone/Microphone';
 
@@ -32,22 +31,16 @@ export function FormInput(props) {
 	}
 
 	return (
-		<AppContext.Consumer>
-			{(value) => {
-				return (
-					<div className={styles.dropMenuAndInputWrap}>
-						<PaperClip setMenuVis={setMenuVis} menuVis={menuVis} />
-						<input
-							className={styles.inputChat}
-							type="text"
-							name="message-text"
-							placeholder="Введите сообщение"
-							onKeyPress={handleKeyPress.bind(value)}
-						/>
-						<Microphone group={group} value={value} />
-					</div>
-				);
-			}}
-		</AppContext.Consumer>
+		<div className={styles.dropMenuAndInputWrap}>
+			<PaperClip setMenuVis={setMenuVis} menuVis={menuVis} />
+			<input
+				className={styles.inputChat}
+				type="text"
+				name="message-text"
+				placeholder="Введите сообщение"
+				onKeyPress={handleKeyPress}
+			/>
+			<Microphone group={group} />
+		</div>
 	);
 }

@@ -1,29 +1,29 @@
 import {
-	GET_MESSAGES_REQUEST,
-	GET_MESSAGES_SUCCESS,
-	GET_MESSAGES_FAILURE,
+	GET_CHATS_REQUEST,
+	GET_CHATS_SUCCESS,
+	GET_CHATS_FAILURE,
 } from '../constants/ActionTypes';
 
 const initialState = {
 	loading: false,
-	messages: [],
+	chats: [],
 	error: null,
 };
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case GET_MESSAGES_REQUEST:
+		case GET_CHATS_REQUEST:
 			return {
 				...state,
 				loading: true,
 			};
-		case GET_MESSAGES_SUCCESS:
+		case GET_CHATS_SUCCESS:
 			return {
 				loading: false,
+				chats: [...action.payload],
 				error: null,
-				messages: [...action.payload],
 			};
-		case GET_MESSAGES_FAILURE:
+		case GET_CHATS_FAILURE:
 			return {
 				...state,
 				loading: false,

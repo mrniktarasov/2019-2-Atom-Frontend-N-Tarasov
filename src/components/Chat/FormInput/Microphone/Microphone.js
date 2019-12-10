@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './Microphone.module.css';
 import microphone from '../../../../static/images/microphone.svg';
-import pause from '../../../../static/images/pause.svg';
+//import pause from '../../../../static/images/pause.svg';
 
 export function Microphone(props) {
-	const group = props.group;
-	const value = props.value;
-	let mediaRecorder = null;
+	//const group = props.group;
+
+	/* let mediaRecorder = null;
 	let [isPlaying, setIsPlaying] = useState(false);
 
 	if (isPlaying) {
@@ -84,7 +84,7 @@ export function Microphone(props) {
 			}
 			setIsPlaying(false);
 		}
-	}
+	} */
 
 	return (
 		<div>
@@ -92,7 +92,7 @@ export function Microphone(props) {
 				alt="microphone"
 				src={microphone}
 				className={styles.microphone}
-				onClick={handleMicroClick}
+				//onClick={handleMicroClick}
 			/>
 		</div>
 	);

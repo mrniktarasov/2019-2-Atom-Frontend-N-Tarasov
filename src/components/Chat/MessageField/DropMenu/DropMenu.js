@@ -13,7 +13,6 @@ export function DropMenu(props) {
 	React.useEffect(() => {
 		const im = pcref.current;
 		im.addEventListener('click', handleClick.bind(inputref));
-		debugger;
 	}, [inputref, pcref]);
 
 	function handleGeoClick() {

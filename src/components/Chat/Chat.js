@@ -2,35 +2,25 @@ import React, { useState } from 'react';
 import styles from './Chat.module.css';
 import { ChatHeader } from './ChatHeader/ChatHeader';
 import { FormInput } from './FormInput/FormInput';
-import { AppContext } from '../../AppContext';
-import { MessageField } from './MessageField/MessageField';
+import MessageField from './MessageField/MessageField';
+import { connect } from 'react-redux';
 
-export function Chat(props) {
-	const keyChat = props.keyChat;
+function Chat(props) {
+	const { keyChat } = props;
+	const groups = props.chats;
 	const [menuVis, setMenuVis] = useState(false);
+	const group = getCurrentGroup(groups, keyChat);
 
 	return (
-		<AppContext.Consumer>
-			{(value) => {
-				const group = getCurrentGroup(value.state.groupList, keyChat);
-				return (
-					<form className={styles.chat}>
-						<ChatHeader group={group} />
-						<MessageField group={group} menuVis={menuVis} />
-						<FormInput
-							group={group}
-							setMenuVis={setMenuVis}
-							menuVis={menuVis}
-						/>
-					</form>
-				);
-			}}
-		</AppContext.Consumer>
+		<form className={styles.chat}>
+			<ChatHeader group={group} />
+			<MessageField group={group} menuVis={menuVis} keyChat={keyChat} />
+			<FormInput group={group} setMenuVis={setMenuVis} menuVis={menuVis} />
+		</form>
 	);
 }
 
 function getCurrentGroup(groupList, key) {
-	debugger;
 	let currentGroup = null;
 	if (groupList !== null) {
 		for (let i = 0; i < groupList.length; i += 1) {
@@ -42,3 +32,11 @@ function getCurrentGroup(groupList, key) {
 	}
 	return currentGroup;
 }
+
+const mapStateToProps = function(state) {
+	return {
+		chats: state.chats.chats,
+	};
+};
+
+export default connect(mapStateToProps)(Chat);

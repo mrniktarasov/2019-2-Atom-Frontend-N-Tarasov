@@ -8,7 +8,6 @@ export function PaperClip(props) {
 	const microref = React.createRef();
 
 	React.useEffect(() => {
-		debugger;
 		window.addEventListener(
 			'click',
 			handleOtherClick.bind(null, menuVis, setMenuVis, microref),
@@ -35,7 +34,6 @@ export function PaperClip(props) {
 }
 
 function handleOtherClick(menuVis, setMenuVis, microref, event) {
-	debugger;
 	if (event.target.className !== styles.paperClip) {
 		if (menuVis === true) {
 			setMenuVis(false);
