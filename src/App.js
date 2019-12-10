@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Groups } from './components/Groups/Groups';
 import Chat from './components/Chat/Chat';
 import { Profile } from './components/Profile/Profile';

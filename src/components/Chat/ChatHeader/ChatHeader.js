@@ -4,7 +4,6 @@ import avatar from '../../../static/images/avatar1.svg';
 import threeDots from '../../../static/images/3dots.svg';
 import backButton from '../../../static/images/backButton.png';
 import { Link } from 'react-router-dom';
-import { AppContext } from '../../../AppContext';
 
 export function ChatHeader(props) {
 	const group = props.group;
