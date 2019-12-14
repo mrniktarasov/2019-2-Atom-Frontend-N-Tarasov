@@ -19,7 +19,6 @@ function elemsFromGroupList(value) {
 	let elems = null;
 	if (!Object.is(groups, null)) {
 		elems = value.state.groupList.map((currentGroup) => {
-			debugger;
 			return addGroup(currentGroup);
 		});
 	}
