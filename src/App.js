@@ -24,6 +24,20 @@ function App(props) {
 						<Profile keyProfile={route.key} />
 					</Route>
 				))}
+				<Route
+					path="/login"
+					component={() => {
+						window.location.href = 'https://127.0.0.1:8000/login';
+						return null;
+					}}
+				/>
+				<Route
+					path="/logout"
+					component={() => {
+						window.location.href = 'https://127.0.0.1:8000/logout';
+						return null;
+					}}
+				/>
 				<Route path="/">
 					<Groups />
 				</Route>
