@@ -1,0 +1,12 @@
+.addButton {
+	height: 15vh;
+	width: 15vh;
+	margin-right: 5vh;
+	margin-bottom: 5vw;
+	text-decoration: none;
+	background-size: cover;
+	cursor: pointer;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+}
