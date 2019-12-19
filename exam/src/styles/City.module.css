@@ -1,19 +1,43 @@
 .main {
 	height: 15vh;
 	margin: 20px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	background-color: rgb(153, 102, 102);
+	padding-left: 5vw;
+	padding-right: 5vw;
+	padding-top: 2vh;
+	padding-bottom: 2vh;
+	background-color: white;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	cursor: pointer;
+	border-radius: 5px;
+	animation-name: appearence;
+	animation-duration: 1s;
+	transition: background-color 1s;
+	font-size: 3vh;
+}
+
+.main:hover {
+	background-color: rgba(255, 255, 255, 0.849);
+}
+
+@keyframes appearence {
+	from {
+		margin-left: 100%;
+		opacity: 0;
+	}
+
+	to {
+		margin-left: 0%;
+		opacity: 1;
+	}
 }
 
 .header {
 	display: flex;
 	justify-content: space-between;
+	border-bottom: 5px;
+	border-color: #bbbbbb4f;
 }
 
 .bottom {
@@ -24,6 +48,16 @@
 .upperLeft {
 	display: flex;
 	flex-direction: column;
+}
+
+.nameAndGeoWrap {
+	display: flex;
+	flex-direction: row;
+}
+
+.geoIcon {
+	height: 5vh;
+	width: 5vh;
 }
 
 .upperRight {

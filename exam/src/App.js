@@ -1,74 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
 import City from './components/City';
 import AddCity from './components/AddCity';
 import CityProfile from './components/CityProfile';
 import styles from './App.module.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getCity } from './actions';
+import { API_URL, KEY } from './constants/ActionTypes';
 
 function App(props) {
-	let example = {
-		coord: {
-			lon: 145.77,
-			lat: -16.92,
-		},
-		weather: {
-			id: 802,
-			main: 'Clouds',
-			description: 'scattered clouds',
-			icon: '03n',
-		},
-		base: 'stations',
-		main: {
-			temp: 300.15,
-			pressure: 1007,
-			humidity: 74,
-			temp_min: 300.15,
-			temp_max: 300.15,
-		},
-		visibility: 10000,
-		wind: {
-			speed: 3.6,
-			deg: 160,
-		},
-		dt: 1485790200,
-		sys: {
-			type: 1,
-			id: 8166,
-			message: 0.2064,
-			country: 'AU',
-			sunrise: 1485720272,
-			sunset: 1485766550,
-		},
-		id: 2172797,
-		name: 'Cairns',
-		cod: 200,
-	};
-	let routes = [
-		{
-			name: example.name,
-			key: example.id,
-		},
-	];
-	let cities = (
-		<li key={example.id}>
-			<City data={example} />
-		</li>
-	);
+	const { getCity, data } = props;
+	const ids = ['1510853', '475936', '1784734'];
+	const [geopos, setGeopos] = useState(null);
+	React.useEffect(() => {
+		const geoSuccess = (position) => {
+			let coords = {
+				lat: position.coords.latitude,
+				lon: position.coords.longitude,
+			};
+			fetch(
+				`${API_URL}/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&appid=${KEY}`,
+			)
+				.then((response) => {
+					return response.json();
+				})
+				.then((data) => {
+					setGeopos(data);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+			return 0;
+		};
+
+		const geoError = (error) => {
+			console.log(error.message);
+		};
+
+		const geoOptions = {
+			enableHighAccuracy: true,
+			maximumAge: 30000,
+			timeout: 27000,
+		};
+
+		navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+		ids.map((id) => {
+			getCity(id, 'ID');
+			return 0;
+		});
+		//eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	return (
 		<Router>
 			<Switch>
-				{routes.map((route) => (
-					<Route path={`/${route.name}`} key={route.key}>
-						<CityProfile data={example} />
+				{geopos ? (
+					<Route path={`/${geopos.name}`} key={geopos.key}>
+						<CityProfile data={geopos} />
+					</Route>
+				) : null}
+				{data.map((city) => (
+					<Route path={`/${city.name}`} key={city.key}>
+						<CityProfile data={city} />
 					</Route>
 				))}
 				<Route path="/">
 					<div className={styles.mainBox}>
-						{routes.map((route) => (
-							<Link to={`/${route.name}`} style={{ textDecoration: 'none' }}>
-								<ul className={styles.mainList}>{cities}</ul>
-							</Link>
-						))}
+						<ul className={styles.mainList}>
+							{geopos ? (
+								<li key={geopos.id}>
+									<Link
+										to={`/${geopos.name}`}
+										style={{ textDecoration: 'none' }}
+									>
+										<City data={geopos} isGeopos={true} />
+									</Link>
+								</li>
+							) : null}
+							{data.map((city) => (
+								<li key={city.id}>
+									<Link to={`/${city.name}`} style={{ textDecoration: 'none' }}>
+										<City data={city} />
+									</Link>
+								</li>
+							))}
+						</ul>
 						<AddCity />
 					</div>
 				</Route>
@@ -77,4 +93,10 @@ function App(props) {
 	);
 }
 
-export default App;
+const mapStateToProps = function(state) {
+	return {
+		data: state.cities.cities,
+	};
+};
+
+export default connect(mapStateToProps, { getCity })(App);

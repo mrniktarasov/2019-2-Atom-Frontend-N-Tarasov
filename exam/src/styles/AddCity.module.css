@@ -9,4 +9,11 @@
 	position: fixed;
 	bottom: 0;
 	right: 0;
+	transition: width 1s, height 1s;
+}
+
+.addButton:hover {
+	width: 14vh;
+	height: 14vh;
+	animation: none;
 }
