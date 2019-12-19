@@ -3,7 +3,7 @@ node_js:
   - 'stable'
 
 before_install:
-  - cd web-components
+  - cd exam
 cache:
   directories:
     - node_modules
