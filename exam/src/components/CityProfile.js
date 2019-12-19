@@ -1,19 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from '../styles/CityProfile.module.css';
 import { API_URL, KEY } from '../constants/ActionTypes';
-import { Link } from 'react-router-dom';
 
 export default function CityProfile(props) {
-	const data = props.data;
+	const { data } = props;
 	const [tomorroyData, setTomorroyData] = React.useState(null);
 	React.useEffect(() => {
 		getFutureInformation(setTomorroyData, data.name);
-		//eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	if (tomorroyData !== null) {
 		return (
 			<div className={styles.mainBox}>
-				<Link to={`/`} style={{ textDecoration: 'none' }}>
+				<Link to="/" style={{ textDecoration: 'none' }}>
 					<img
 						src="https://cdn4.iconfinder.com/data/icons/controls-add-on-flat/48/Contols_-_Add_On-29-512.png"
 						alt="backButton"
@@ -23,26 +23,28 @@ export default function CityProfile(props) {
 				<div className={styles.headerWrap}>
 					<div className={styles.header}>{data.name}</div>
 					<div className={styles.tempWrap}>
-						<div className={styles.temperature}>{`${Math.round(
-							data.main.temp - 273,
-						)}℃`}</div>
+						<div className={styles.temperature}>
+							{`${Math.round(data.main.temp - 273)}℃`}
+						</div>
 					</div>
 				</div>
 				<div className={styles.futureWrap}>
 					<div className={styles.weatherBox}>
 						<div className={styles.leftWrap}>
-							<div
-								className={styles.text}
-							>{`Today: ${tomorroyData.list[0].weather[0].main}`}</div>
+							<div className={styles.text}>
+								{`Today: ${tomorroyData.list[0].weather[0].main}`}
+							</div>
 							<img
 								src={`http://openweathermap.org/img/wn/${tomorroyData.list[0].weather[0].icon}@2x.png`}
 								alt="icon"
 								className={styles.icon}
 							/>
 						</div>
-						<div>{`${KtoC(tomorroyData.list[0].main.temp)}℃ / ${KtoC(
-							tomorroyData.list[3].main.temp,
-						)} ℃`}</div>
+						<div>
+							{`${KtoC(tomorroyData.list[0].main.temp)}℃ / ${KtoC(
+								tomorroyData.list[3].main.temp,
+							)} ℃`}
+						</div>
 					</div>
 					<div className={styles.weatherBox}>
 						<div className={styles.leftWrap}>
@@ -53,31 +55,36 @@ export default function CityProfile(props) {
 								className={styles.icon}
 							/>
 						</div>
-						<div>{`${KtoC(tomorroyData.list[8].main.temp)}℃ / ${KtoC(
-							tomorroyData.list[11].main.temp,
-						)} ℃`}</div>
+						<div>
+							{`${KtoC(tomorroyData.list[8].main.temp)}℃ / ${KtoC(
+								tomorroyData.list[11].main.temp,
+							)} ℃`}
+						</div>
 					</div>
 					<div className={styles.weatherBox}>
 						<div className={styles.leftWrap}>
-							<div>{`${partOfWeek(tomorroyData.list[16].dt_txt)}: ${
-								tomorroyData.list[0].weather[0].main
-							}`}</div>
+							<div>
+								{`${partOfWeek(tomorroyData.list[16].dt_txt)}: ${
+									tomorroyData.list[0].weather[0].main
+								}`}
+							</div>
 							<img
 								src={`http://openweathermap.org/img/wn/${tomorroyData.list[16].weather[0].icon}@2x.png`}
 								alt="icon"
 								className={styles.icon}
 							/>
 						</div>
-						<div>{`${KtoC(tomorroyData.list[16].main.temp)}℃ / ${KtoC(
-							tomorroyData.list[19].main.temp,
-						)} ℃`}</div>
+						<div>
+							{`${KtoC(tomorroyData.list[16].main.temp)}℃ / ${KtoC(
+								tomorroyData.list[19].main.temp,
+							)} ℃`}
+						</div>
 					</div>
 				</div>
 			</div>
 		);
-	} else {
-		return null;
 	}
+	return null;
 }
 
 function partOfWeek(date) {
@@ -169,9 +176,7 @@ function partOfWeek(date) {
 
 async function getFutureInformation(setTomorroyData, name) {
 	fetch(`${API_URL}/data/2.5/forecast?q=${name}&appid=${KEY}`)
-		.then((response) => {
-			return response.json();
-		})
+		.then((response) => response.json())
 		.then((data) => {
 			setTomorroyData(data);
 		});

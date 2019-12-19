@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from '../styles/AddCity.module.css';
 import { connect } from 'react-redux';
+import styles from '../styles/AddCity.module.css';
 import { getCity } from '../actions';
 
 function AddCity(props) {

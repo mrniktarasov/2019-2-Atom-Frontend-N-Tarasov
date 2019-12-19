@@ -1,11 +1,11 @@
 import React from 'react';
-import styles from '../styles/City.module.css';
 import { connect } from 'react-redux';
+import styles from '../styles/City.module.css';
 
 function City(props) {
 	const { data, isGeopos } = props;
 	debugger;
-	let deg = data.wind.deg;
+	const { deg } = data.wind;
 	return (
 		<div className={styles.main}>
 			<div className={styles.header}>
@@ -32,9 +32,11 @@ function City(props) {
 				</div>
 			</div>
 			<div className={styles.bottom}>
-				<div>{`Humidity ${data.main.humidity}% | ${getCardinalDirection(
-					deg,
-				)} | ${data.wind.speed}m/s`}</div>
+				<div>
+					{`Humidity ${data.main.humidity}% | ${getCardinalDirection(deg)} | ${
+						data.wind.speed
+					}m/s`}
+				</div>
 			</div>
 		</div>
 	);
@@ -46,7 +48,7 @@ function KtoC(temp) {
 
 function getCardinalDirection(deg) {
 	let CD;
-	//eslint-disable-next-line no-mixed-operators
+	// eslint-disable-next-line no-mixed-operators
 	if ((deg > 250 && deg < 360) || (deg > 0 && deg <= 45)) {
 		CD = 'North';
 	} else if (deg > 45 && deg <= 135) {
