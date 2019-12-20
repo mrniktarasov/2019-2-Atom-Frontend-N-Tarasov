@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './FormInput.module.css';
 import { PaperClip } from './PaperClip/PaperClip';
 import { Microphone } from './Microphone/Microphone';
+import { API_URL } from '../../../constants/Constants';
 
 export function FormInput(props) {
 	let group = props.group;
@@ -14,7 +15,7 @@ export function FormInput(props) {
 			const text = event.target.value;
 			const data = new FormData();
 			data.append('content', text);
-			fetch(`https://127.0.0.1:8000/chats/chat/${group.chat_id}/add_message/`, {
+			fetch(`${API_URL}/chats/chat/${group.chat_id}/add_message/`, {
 				method: 'POST',
 				mode: 'cors',
 				credentials: 'include',

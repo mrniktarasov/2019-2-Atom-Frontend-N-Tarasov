@@ -5,6 +5,7 @@ import { Profile } from './components/Profile/Profile';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getChats } from './actions';
+import { API_URL } from './constants/Constants';
 
 function App(props) {
 	const { getChats, routes, groups } = props;
@@ -27,14 +28,14 @@ function App(props) {
 				<Route
 					path="/login"
 					component={() => {
-						window.location.href = 'https://127.0.0.1:8000/login';
+						window.location.href = `${API_URL}/login`;
 						return null;
 					}}
 				/>
 				<Route
 					path="/logout"
 					component={() => {
-						window.location.href = 'https://127.0.0.1:8000/logout';
+						window.location.href = `${API_URL}/logout`;
 						return null;
 					}}
 				/>
