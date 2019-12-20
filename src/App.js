@@ -47,7 +47,7 @@ function App(props) {
 	);
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = (state) => {
 	return {
 		routes: state.routes.routes,
 		groups: state.chats.chats,

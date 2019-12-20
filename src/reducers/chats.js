@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
 		case GET_CHATS_SUCCESS:
 			return {
 				loading: false,
-				chats: [...action.payload],
+				chats: action.payload,
 				error: null,
 			};
 		case GET_CHATS_FAILURE:

@@ -7,6 +7,7 @@ import {
 	GET_CHATS_ROUTES,
 	GET_CHATS_FAILURE,
 } from '../constants/ActionTypes';
+import { API_URL } from '../constants/Constants';
 
 const getMessagesSuccess = (messages) => ({
 	type: GET_MESSAGES_SUCCESS,
@@ -50,7 +51,7 @@ export function getMessages(key) {
 		const pollItems = () => {
 			dispatch(getMessagesStarted());
 
-			fetch(`https://127.0.0.1:8000/chats/chat/${key}/get_message_list/`, {
+			fetch(`${API_URL}/chats/chat/${key}/get_message_list/`, {
 				method: 'GET',
 				mode: 'cors',
 				credentials: 'include',
@@ -75,7 +76,7 @@ export function getChats() {
 		const pollItems = () => {
 			dispatch(getChatsStarted());
 
-			fetch(`https://127.0.0.1:8000/chats/get_chat_list/`, {
+			fetch(`${API_URL}/chats/get_chat_list/`, {
 				method: 'GET',
 				mode: 'cors',
 				credentials: 'include',

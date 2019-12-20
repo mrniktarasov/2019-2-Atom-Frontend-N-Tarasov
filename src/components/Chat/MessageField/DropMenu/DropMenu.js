@@ -3,6 +3,7 @@ import { AppContext } from '../../../../AppContext';
 import styles from './DropMenu.module.css';
 import placeholder from '../../../../static/images/placeholder.svg';
 import paperClip from '../../../../static/images/PaperClip.ico';
+import { API_URL } from '../../../../constants/Constants';
 
 export function DropMenu(props) {
 	const visibility = props.visibility;
@@ -20,7 +21,7 @@ export function DropMenu(props) {
 			const text = `https://www.openstreetmap.org/#map=18/${position.coords.latitude}/${position.coords.longitude}`;
 			const data = new FormData();
 			data.append('content', text);
-			fetch(`https://127.0.0.1:8000/chats/chat/${group.chat_id}/add_message/`, {
+			fetch(`${API_URL}/chats/chat/${group.chat_id}/add_message/`, {
 				method: 'POST',
 				mode: 'cors',
 				credentials: 'include',

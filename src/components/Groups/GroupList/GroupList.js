@@ -34,7 +34,7 @@ function getTime(date) {
 	return currentTime;
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = (state) => {
 	return {
 		chats: state.chats.chats,
 	};

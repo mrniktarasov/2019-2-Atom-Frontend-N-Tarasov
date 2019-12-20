@@ -33,7 +33,7 @@ function getCurrentGroup(groupList, key) {
 	return currentGroup;
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = (state) => {
 	return {
 		chats: state.chats.chats,
 	};
