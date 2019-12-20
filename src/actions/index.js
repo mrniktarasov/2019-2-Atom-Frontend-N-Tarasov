@@ -5,6 +5,7 @@ import {
 	GET_CHATS_REQUEST,
 	GET_CHATS_SUCCESS,
 	GET_CHATS_ROUTES,
+	GET_CHATS_FAILURE,
 } from '../constants/ActionTypes';
 
 const getMessagesSuccess = (messages) => ({
@@ -16,7 +17,7 @@ const getMessagesStarted = () => ({
 	type: GET_MESSAGES_REQUEST,
 });
 
-const getMessagesFailure = () => ({
+const getMessagesFailure = (error) => ({
 	type: GET_MESSAGES_FAILURE,
 	payload: {
 		error,
