@@ -2,6 +2,9 @@ import {
 	GET_MESSAGES_REQUEST,
 	GET_MESSAGES_SUCCESS,
 	GET_MESSAGES_FAILURE,
+	GET_CHATS_REQUEST,
+	GET_CHATS_SUCCESS,
+	GET_CHATS_ROUTES,
 } from '../constants/ActionTypes';
 
 const getMessagesSuccess = (messages) => ({
