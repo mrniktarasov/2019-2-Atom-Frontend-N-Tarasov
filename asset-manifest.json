@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/2019-2-Atom-Frontend-N-Tarasov/static/css/main.61743c92.chunk.css",
+    "main.js": "/2019-2-Atom-Frontend-N-Tarasov/static/js/main.55c5ba61.chunk.js",
+    "main.js.map": "/2019-2-Atom-Frontend-N-Tarasov/static/js/main.55c5ba61.chunk.js.map",
+    "runtime-main.js": "/2019-2-Atom-Frontend-N-Tarasov/static/js/runtime-main.58b3d6c1.js",
+    "runtime-main.js.map": "/2019-2-Atom-Frontend-N-Tarasov/static/js/runtime-main.58b3d6c1.js.map",
+    "static/js/2.ab09cd30.chunk.js": "/2019-2-Atom-Frontend-N-Tarasov/static/js/2.ab09cd30.chunk.js",
+    "static/js/2.ab09cd30.chunk.js.map": "/2019-2-Atom-Frontend-N-Tarasov/static/js/2.ab09cd30.chunk.js.map",
+    "index.html": "/2019-2-Atom-Frontend-N-Tarasov/index.html",
+    "precache-manifest.0042643e9c569fd9d49467545a0fa642.js": "/2019-2-Atom-Frontend-N-Tarasov/precache-manifest.0042643e9c569fd9d49467545a0fa642.js",
+    "service-worker.js": "/2019-2-Atom-Frontend-N-Tarasov/service-worker.js",
+    "static/css/main.61743c92.chunk.css.map": "/2019-2-Atom-Frontend-N-Tarasov/static/css/main.61743c92.chunk.css.map",
+    "static/js/2.ab09cd30.chunk.js.LICENSE": "/2019-2-Atom-Frontend-N-Tarasov/static/js/2.ab09cd30.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.58b3d6c1.js",
+    "static/js/2.ab09cd30.chunk.js",
+    "static/css/main.61743c92.chunk.css",
+    "static/js/main.55c5ba61.chunk.js"
+  ]
+}
