@@ -2,10 +2,6 @@ import {
 	GET_MESSAGES_REQUEST,
 	GET_MESSAGES_SUCCESS,
 	GET_MESSAGES_FAILURE,
-	GET_CHATS_REQUEST,
-	GET_CHATS_SUCCESS,
-	GET_CHATS_FAILURE,
-	GET_CHATS_ROUTES,
 } from '../constants/ActionTypes';
 
 const getMessagesSuccess = (messages) => ({
@@ -17,7 +13,7 @@ const getMessagesStarted = () => ({
 	type: GET_MESSAGES_REQUEST,
 });
 
-const getMessagesFailure = (error) => ({
+const getMessagesFailure = () => ({
 	type: GET_MESSAGES_FAILURE,
 	payload: {
 		error,
