@@ -8,7 +8,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 class App extends React.Component {
 	constructor(props) {
 		super(props);
-		debugger;
 		const info = this.getInfo();
 		const routes = this.makeRoutes(info.groupList);
 		this.state = {
