@@ -4,14 +4,13 @@ import styles from '../styles/City.module.css';
 
 function City(props) {
 	const { data, isGeopos } = props;
-	debugger;
-	const { deg } = data.wind;
+	const { deg } = data.wind || '';
 	return (
 		<div className={styles.main}>
 			<div className={styles.header}>
 				<div className={styles.upperLeft}>
 					<div className={styles.nameAndGeoWrap}>
-						<div>{data.name}</div>
+						<div>{data.name || ''}</div>
 						{isGeopos ? (
 							<img
 								src="https://image.flaticon.com/icons/png/512/117/117967.png"
@@ -20,7 +19,7 @@ function City(props) {
 							/>
 						) : null}
 					</div>
-					<div>{data.country}</div>
+					<div>{data.country || ''}</div>
 				</div>
 				<div className={styles.upperRight}>
 					<img
@@ -33,9 +32,9 @@ function City(props) {
 			</div>
 			<div className={styles.bottom}>
 				<div>
-					{`Humidity ${data.main.humidity}% | ${getCardinalDirection(deg)} | ${
-						data.wind.speed
-					}m/s`}
+					{`Humidity ${data.main.humidity || ''}% | ${getCardinalDirection(
+						deg,
+					)} | ${data.wind.speed || ''}m/s`}
 				</div>
 			</div>
 		</div>
@@ -43,10 +42,16 @@ function City(props) {
 }
 
 function KtoC(temp) {
+	if (Object.is(temp, undefined)) {
+		return '';
+	}
 	return Math.round(temp - 273);
 }
 
 function getCardinalDirection(deg) {
+	if (Object.is(deg, undefined)) {
+		return '';
+	}
 	let CD;
 	// eslint-disable-next-line no-mixed-operators
 	if ((deg > 250 && deg < 360) || (deg > 0 && deg <= 45)) {

@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
 				loading: true,
 			};
 		case GET_CITY_SUCCESS:
-			let cities = [...state.cities];
+			const cities = [...state.cities];
 			let cityExistInList = false;
 			let i = 0;
 			if (cities.length > 0) {

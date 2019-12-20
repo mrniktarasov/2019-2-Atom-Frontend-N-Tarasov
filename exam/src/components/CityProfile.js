@@ -21,10 +21,10 @@ export default function CityProfile(props) {
 					/>
 				</Link>
 				<div className={styles.headerWrap}>
-					<div className={styles.header}>{data.name}</div>
+					<div className={styles.header}>{data.name || ''}</div>
 					<div className={styles.tempWrap}>
 						<div className={styles.temperature}>
-							{`${Math.round(data.main.temp - 273)}℃`}
+							{`${KtoC(data.main.temp)}℃`}
 						</div>
 					</div>
 				</div>
@@ -32,7 +32,7 @@ export default function CityProfile(props) {
 					<div className={styles.weatherBox}>
 						<div className={styles.leftWrap}>
 							<div className={styles.text}>
-								{`Today: ${tomorroyData.list[0].weather[0].main}`}
+								{`Today: ${tomorroyData.list[0].weather[0].main || ''}`}
 							</div>
 							<img
 								src={`http://openweathermap.org/img/wn/${tomorroyData.list[0].weather[0].icon}@2x.png`}
@@ -48,7 +48,8 @@ export default function CityProfile(props) {
 					</div>
 					<div className={styles.weatherBox}>
 						<div className={styles.leftWrap}>
-							<div>{`Tomorroy: ${tomorroyData.list[0].weather[0].main}`}</div>
+							<div>{`Tomorroy: ${tomorroyData.list[0].weather[0].main ||
+								''}`}</div>
 							<img
 								src={`http://openweathermap.org/img/wn/${tomorroyData.list[8].weather[0].icon}@2x.png`}
 								alt="icon"
@@ -64,9 +65,8 @@ export default function CityProfile(props) {
 					<div className={styles.weatherBox}>
 						<div className={styles.leftWrap}>
 							<div>
-								{`${partOfWeek(tomorroyData.list[16].dt_txt)}: ${
-									tomorroyData.list[0].weather[0].main
-								}`}
+								{`${partOfWeek(tomorroyData.list[16].dt_txt)}: ${tomorroyData
+									.list[0].weather[0].main || ''}`}
 							</div>
 							<img
 								src={`http://openweathermap.org/img/wn/${tomorroyData.list[16].weather[0].icon}@2x.png`}
@@ -87,26 +87,33 @@ export default function CityProfile(props) {
 	return null;
 }
 
+function KtoC(temp) {
+	if (Object.is(temp, undefined)) {
+		return '';
+	}
+	return Math.round(temp - 273);
+}
+
 function partOfWeek(date) {
+	if (Object.is(date, undefined)) {
+		return '';
+	}
 	const currentDate = new Date(date);
+	const currentMonth = currentDate.getMonth();
 	let codeMonth;
-	if (currentDate.getMonth() === 0 || currentDate.getMonth() === 9) {
+	if (currentMonth === 0 || currentMonth === 9) {
 		codeMonth = 1;
-	} else if (currentDate.getMonth() === 4) {
+	} else if (currentMonth === 4) {
 		codeMonth = 2;
-	} else if (currentDate.getMonth() === 7) {
+	} else if (currentMonth === 7) {
 		codeMonth = 3;
-	} else if (
-		currentDate.getMonth() === 1 ||
-		currentDate.getMonth() === 2 ||
-		currentDate.getMonth() === 10
-	) {
+	} else if (currentMonth === 1 || currentMonth === 2 || currentMonth === 10) {
 		codeMonth = 4;
-	} else if (currentDate.getMonth() === 5) {
+	} else if (currentMonth === 5) {
 		codeMonth = 5;
-	} else if (currentDate.getMonth() === 11 || currentDate.getMonth() === 9) {
+	} else if (currentMonth === 11 || currentMonth === 9) {
 		codeMonth = 6;
-	} else if (currentDate.getMonth() === 3 || currentDate.getMonth() === 6) {
+	} else if (currentMonth === 3 || currentMonth === 6) {
 		codeMonth = 0;
 	}
 
@@ -180,8 +187,4 @@ async function getFutureInformation(setTomorroyData, name) {
 		.then((data) => {
 			setTomorroyData(data);
 		});
-}
-
-function KtoC(temp) {
-	return Math.round(temp - 273);
 }

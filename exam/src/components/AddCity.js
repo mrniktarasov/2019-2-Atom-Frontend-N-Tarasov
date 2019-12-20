@@ -19,6 +19,9 @@ function AddCity(props) {
 
 function handleClick() {
 	const cityName = prompt('Введите имя чата: ');
+	if (Object.is(cityName, null) || Object.is(cityName, '')) {
+		return 1;
+	}
 	this(cityName, 'name');
 }
 

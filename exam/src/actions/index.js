@@ -28,7 +28,13 @@ export function getCity(info, type) {
 		if (type === 'name') {
 			dispatch(getCityStarted());
 			fetch(`${API_URL}/data/2.5/weather?q=${info}&appid=${KEY}`)
-				.then((response) => response.json())
+				.then((response) => {
+					if (response.status !== 200) {
+						throw new Error('Not 200 response');
+					} else {
+						return response.json();
+					}
+				})
 				.then((data) => {
 					dispatch(getCitySuccess(data));
 				})
