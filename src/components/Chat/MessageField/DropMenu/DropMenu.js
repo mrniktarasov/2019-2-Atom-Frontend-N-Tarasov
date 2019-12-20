@@ -95,7 +95,6 @@ export function DropMenu(props) {
 	}
 
 	function handleFileChange(event) {
-		debugger;
 		const files = event.target.files;
 		const MB = 1024 * 1024 * 4;
 		if (files.length < 3) {
