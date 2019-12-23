@@ -1,53 +1,33 @@
 import React from 'react';
-import { AppContext } from '../../../AppContext';
 import styles from './AddGroup.module.css';
+import { API_URL } from '../../../constants/Constants';
 
 export function AddGroup(props) {
 	return (
-		<AppContext.Consumer>
-			{(value) => (
-				<svg
-					className={styles.addGroup}
-					viewBox="0 0 180 180"
-					onClick={() => {
-						clickedOnAddGroup(value);
-					}}
-				/>
-			)}
-		</AppContext.Consumer>
+		<svg
+			className={styles.addGroup}
+			viewBox="0 0 180 180"
+			onClick={clickedOnAddGroup}
+		/>
 	);
 }
 
-function clickedOnAddGroup(value) {
-	const sender = prompt('Введите имя чата: ');
-	if (Object.is(sender, null) || Object.is(sender, '')) {
+function clickedOnAddGroup() {
+	const topic = prompt('Введите имя чата: ');
+	if (Object.is(topic, null) || Object.is(topic, '')) {
 		return 1;
 	}
-	const date = new Date();
-	const key = date.getTime();
-	const group = {
-		key,
-		date,
-		sender,
-		messages: null,
-		lastMessage: 'Сообщений пока нет',
-	};
-	try {
-		value.state.groupList.push(group);
-	} catch {
-		const groups = [];
-		value.state.groupList = groups;
-		value.state.groupList.push(group);
-	}
-	debugger;
-	localStorage.setItem(
-		value.state.IDgroups,
-		JSON.stringify(value.state.groupList),
-	);
-	const route = {
-		key,
-	};
-	value.state.routes.push(route);
-	value.newGroup();
+	const data = new FormData();
+	data.append('topic', topic);
+	fetch(`${API_URL}/chats/create_personal_chat/`, {
+		method: 'POST',
+		mode: 'cors',
+		credentials: 'include',
+		body: data,
+	})
+		.then((response) => {
+			console.log('Chat has been added');
+		})
+		.catch((error) => console.log(error));
 	return 0;
 }

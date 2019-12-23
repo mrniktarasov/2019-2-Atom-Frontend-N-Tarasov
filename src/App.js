@@ -1,165 +1,57 @@
 import React from 'react';
 import { Groups } from './components/Groups/Groups';
-import { Chat } from './components/Chat/Chat';
+import Chat from './components/Chat/Chat';
 import { Profile } from './components/Profile/Profile';
-import { AppContext } from './AppContext';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getChats } from './actions';
+import { API_URL } from './constants/Constants';
 
-class App extends React.Component {
-	constructor(props) {
-		super(props);
-		const info = this.getInfo();
-		const routes = this.makeRoutes(info.groupList);
-		this.state = {
-			addNewGroup: false,
-			addNewMessage: false,
-			IDgroups: info.IDgroups,
-			groupList: info.groupList,
-			messagesEnd: null,
-			routes,
-		};
-		this.createCommonChat();
-		this.newGroup = this.newGroup.bind(this);
+function App(props) {
+	const { getChats, routes, groups } = props;
+	if (!groups.length > 0) {
+		getChats();
 	}
-
-	componentDidMount() {
-		window.scrollTo(0, document.body.scrollHeight);
-	}
-
-	makeRoutes(groupList) {
-		let routes = [];
-		if (!Object.is(groupList, null)) {
-			groupList.map((oneGroup) => {
-				const route = {
-					key: oneGroup.key,
-				};
-				routes.push(route);
-				return 0;
-			});
-		}
-		return routes;
-	}
-
-	getInfo() {
-		let info = null;
-		const IDgroups = 'IDgroups';
-		try {
-			info = {
-				groupList: JSON.parse(localStorage.getItem(IDgroups)),
-				IDgroups,
-			};
-		} catch {
-			info = {
-				groupList: null,
-				IDgroups,
-			};
-		}
-		return info;
-	}
-
-	createCommonChat() {
-		const keyDB = '1';
-		let sender;
-		fetch(`https://127.0.0.1:8000/chats/chat/${keyDB}/`, {
-			method: 'GET',
-			mode: 'cors',
-			credentials: 'include',
-		})
-			.then((response) => {
-				return response.json();
-			})
-			.then((data) => {
-				sender = data.topic;
-				const key = keyDB;
-				const group = {
-					key,
-					sender,
-					messages: null,
-					lastMessageTime: null,
-					lastMessage: 'Сообщений пока нет',
-				};
-				let groups = this.state.groupList;
-				try {
-					groups.push(group);
-				} catch {
-					groups = [];
-					groups.push(group);
-				}
-				let routes = this.state.routes;
-				const route = {
-					key,
-				};
-				routes.push(route);
-				this.setState({
-					routes: routes,
-					groupList: groups,
-				});
-			})
-			.catch((err) => console.log(err));
-
-		/*sender = 'Common chat'//data.topic;
-		const date = new Date();
-		const key = '1';
-		const group = {
-			key,
-			date,
-			sender,
-			messages: null,
-			lastMessage: 'Сообщений пока нет',
-			lastMessageTime: [date.getHours(), date.getMinutes()]
-				.map((x) => (x < 10 ? `0${x}` : x))
-				.join(':'),
-		};
-		const data = new FormData();
-		data.append('topic', sender);
-		fetch(`https://127.0.0.1:8000/chats/create_personal_chat/`, {
-			method: 'POST',
-			mode: 'cors',
-			credentials: 'include',
-			body: data,
-		}).then(
-			response => {
-				console.log('Common chat has been created')
-			}
-		).catch( error => console.log(error))*/
-	}
-
-	newGroup() {
-		this.setState({
-			addNewGroup: true,
-		});
-	}
-
-	newMessage(el) {
-		this.setState({
-			addNewMessage: true,
-			messagesEnd: el,
-		});
-	}
-
-	render() {
-		return (
-			<AppContext.Provider value={this}>
-				<Router>
-					<Switch>
-						{this.state.routes.map((route) => (
-							<Route path={`/chat/${route.key}`} key={route.key}>
-								<Chat keyChat={route.key} />
-							</Route>
-						))}
-						{this.state.routes.map((route) => (
-							<Route path={`/profile/${route.key}`} key={route.key}>
-								<Profile keyProfile={route.key} />
-							</Route>
-						))}
-						<Route path="/">
-							<Groups />
-						</Route>
-					</Switch>
-				</Router>
-			</AppContext.Provider>
-		);
-	}
+	return (
+		<Router>
+			<Switch>
+				{routes.map((route) => (
+					<Route path={`/chat/${route.key}`} key={route.key}>
+						<Chat keyChat={route.key} />
+					</Route>
+				))}
+				{routes.map((route) => (
+					<Route path={`/profile/${route.key}`} key={route.key}>
+						<Profile keyProfile={route.key} />
+					</Route>
+				))}
+				<Route
+					path="/login"
+					component={() => {
+						window.location.href = `${API_URL}/login`;
+						return null;
+					}}
+				/>
+				<Route
+					path="/logout"
+					component={() => {
+						window.location.href = `${API_URL}/logout`;
+						return null;
+					}}
+				/>
+				<Route path="/">
+					<Groups />
+				</Route>
+			</Switch>
+		</Router>
+	);
 }
 
-export default App;
+const mapStateToProps = (state) => {
+	return {
+		routes: state.routes.routes,
+		groups: state.chats.chats,
+	};
+};
+
+export default connect(mapStateToProps, { getChats })(App);

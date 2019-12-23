@@ -3,6 +3,7 @@ import { AppContext } from '../../../../AppContext';
 import styles from './DropMenu.module.css';
 import placeholder from '../../../../static/images/placeholder.svg';
 import paperClip from '../../../../static/images/PaperClip.ico';
+import { API_URL } from '../../../../constants/Constants';
 
 export function DropMenu(props) {
 	const visibility = props.visibility;
@@ -13,34 +14,23 @@ export function DropMenu(props) {
 	React.useEffect(() => {
 		const im = pcref.current;
 		im.addEventListener('click', handleClick.bind(inputref));
-		debugger;
 	}, [inputref, pcref]);
 
 	function handleGeoClick() {
 		const geoSuccess = (position) => {
-			const separator = '!@#';
-			const type = 'ref';
-			const author = 'you';
-			const currentDate = new Date();
-			const mesKey = currentDate.getTime();
-			const currentTime = [currentDate.getHours(), currentDate.getMinutes()]
-				.map((x) => (x < 10 ? `0${x}` : x))
-				.join(':');
 			const text = `https://www.openstreetmap.org/#map=18/${position.coords.latitude}/${position.coords.longitude}`;
-			const currentMessage = `${mesKey}${separator}${currentTime}${separator}${author}${separator}${text}${separator}${type}`;
-			try {
-				group.messages.push(currentMessage);
-			} catch {
-				group.messages = [];
-				group.messages.push(currentMessage);
-			}
-			group.lastMessageTime = currentTime;
-			group.lastMessage = text;
-			localStorage.setItem(
-				this.state.IDgroups,
-				JSON.stringify(this.state.groupList),
-			);
-			this.newMessage();
+			const data = new FormData();
+			data.append('content', text);
+			fetch(`${API_URL}/chats/chat/${group.chat_id}/add_message/`, {
+				method: 'POST',
+				mode: 'cors',
+				credentials: 'include',
+				body: data,
+			})
+				.then((response) => {
+					console.log('Message has been added');
+				})
+				.catch((error) => console.log(error));
 			return 0;
 		};
 

@@ -1,41 +1,43 @@
 import React from 'react';
 import styles from './GroupList.module.css';
 import { GroupsPreview } from '../GroupsPreview/GroupsPreview';
-import { AppContext } from '../../../AppContext';
+import { connect } from 'react-redux';
 
-export function GroupList(props) {
-	return (
-		<AppContext.Consumer>
-			{(value) => {
-				const elems = elemsFromGroupList(value);
-				return <ul className={styles.groups}>{elems}</ul>;
-			}}
-		</AppContext.Consumer>
-	);
-}
-
-function elemsFromGroupList(value) {
-	const groups = value.state.groupList;
+function GroupList(props) {
+	const groups = props.chats;
 	let elems = null;
-	if (!Object.is(groups, null)) {
-		elems = value.state.groupList.map((currentGroup) => {
-			debugger;
-			return addGroup(currentGroup);
+	if (groups && groups.length > 0) {
+		elems = groups.map((currentGroup) => {
+			return (
+				<li key={currentGroup.chat_id}>
+					<GroupsPreview
+						sender={currentGroup.topic}
+						lastMessage={currentGroup.last_message}
+						lastMessageTime={getTime(currentGroup.last_message_date)}
+						keyGroup={currentGroup.chat_id}
+					/>
+				</li>
+			);
 		});
 	}
-	return elems;
+	return <ul className={styles.groups}>{elems}</ul>;
 }
 
-function addGroup(currentGroup) {
-	return (
-		<li key={currentGroup.key}>
-			<GroupsPreview
-				sender={currentGroup.sender}
-				lastMessage={currentGroup.lastMessage}
-				lastMessageTime={currentGroup.lastMessageTime}
-				keyGroup={currentGroup.key}
-				messages={currentGroup.messages}
-			/>
-		</li>
-	);
+function getTime(date) {
+	let currentTime = null;
+	if (date) {
+		const currentDate = new Date(date);
+		currentTime = [currentDate.getHours(), currentDate.getMinutes()]
+			.map((x) => (x < 10 ? `0${x}` : x))
+			.join(':');
+	}
+	return currentTime;
 }
+
+const mapStateToProps = (state) => {
+	return {
+		chats: state.chats.chats,
+	};
+};
+
+export default connect(mapStateToProps)(GroupList);

@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import counter from './counter';
+import messages from './messages';
+import chats from './chats';
+import routes from './routes';
 
-const rootReducer = combineReducers({
-	counter,
+export default combineReducers({
+	messages,
+	chats,
+	routes,
 });
-
-export default rootReducer;
